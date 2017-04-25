@@ -1,0 +1,35 @@
+// Is the extension of this file .h or .h.in? Then read the suitable paragraph below.
+/*  .h
+        This is an automatically generated file by CMake. Do not edit!
+        You can modify it indirectly by editing the pendant file with appended
+        extension ".in". This usually can be found right next to your base
+        CMakeLists.txt file.
+    
+    .h.in
+        This is the source file that will undergo preprocessing by CMake.
+        You can tailor this one to your needs.
+        Note that you will need to re-run CMake.
+*/
+#ifndef APPNAME_BUILD_CONFIG_H_diurcghz8x45nh2z8vgby234rzvyedb
+#define APPNAME_BUILD_CONFIG_H_diurcghz8x45nh2z8vgby234rzvyedb
+
+#include <string>
+
+
+//! The indicator for the really serious release build.
+#cmakedefine DEPLOYMENT_BUILD
+#ifdef DEPLOYMENT_BUILD
+#define IS_DEPLOYMENT_BUILD    1
+#else
+#define IS_DEPLOYMENT_BUILD    0
+#endif
+
+namespace app
+{
+inline std::string get_version()
+{
+    return "@PROJECT_VERSION@";
+}
+} // app
+
+#endif
