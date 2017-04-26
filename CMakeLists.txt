@@ -25,6 +25,15 @@ set(TargetAppName ${PROJECT_NAME})
 
 include(${TOO_CMAKE_INC_DEFAULTS})
 
+set(uiwrap_USE_IMPLEMENTATION       "qt" CACHE STRING "Choose the desired UI implementation out of: qt (default), wx, ... or own")
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+    add_definitions(-DUIW_CHOICE_QT)
+elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
+    add_definitions(-DUIW_CHOICE_WX)
+else ()
+    add_definitions(-DUIW_CHOICE_WIN_CMD)
+endif ()
+
 add_subdirectory(sdks)
 
 include (${TOO_CMAKE_INC_QT})
@@ -35,7 +44,7 @@ file(GLOB_RECURSE TargetAppNameAsLibForTest_SRC_INCS "src/*.h*")
 # Sources to be switched according to active GUI implementation.
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     set(TargetAppNameAsLibForTest_IMPL_SOURCES
-        src/_gui/src_Qt/resource_string.cpp
+        src/_gui/src_Qt/resource_string/resource_string.cpp
         )
 elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
 else ()
@@ -71,6 +80,7 @@ target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${CMAKE_BINARY_DI
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC src)
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${tooBasicCodeSupport_INCLUDE_DIRS})
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${tooString_INCLUDE_DIRS})
+target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${uiwrap_INCLUDE_DIRS})
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_include_directories(${TargetAppNameAsLibForTest} SYSTEM PUBLIC ${Qt5Quick_INCLUDE_DIRS})
 endif ()
