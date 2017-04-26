@@ -1,10 +1,10 @@
-#include "AppName_build_config.h"
 #include "_gui/interface/resource_string.h"
+#include "MinimalQtTestApp_build_config.h"
 #include "Toolib/assert.h"
 #include "Toolib/error.h"
 #include "Toolib/trace.h"
-#include <iostream>
 #include <conio.h>
+#include <iostream>
 
 
 namespace

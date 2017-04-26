@@ -20,19 +20,29 @@ add_subdirectory(sdks/ToolsFL/tooBuildEnv)
 include(${TOO_CMAKE_INC_BUILDNR})
 project(MinimalQtTestApp VERSION 0.1.${BUILD_NR}.0)
 message(STATUS "project version: " ${PROJECT_VERSION})
-option(DEPLOYMENT_BUILD "do a final release build for deployment" $ENV{DeployArtifacts})
+include(${TOO_CMAKE_INC_DEPLOYMENT_BUILD})
 set(TargetAppName ${PROJECT_NAME})
 
 include(${TOO_CMAKE_INC_DEFAULTS})
 
 add_subdirectory(sdks)
 
+include (${TOO_CMAKE_INC_QT})
+find_package(Qt5Quick) # Widgets contains a.o.t. Core and Gui
+
 file(GLOB_RECURSE TargetAppNameAsLibForTest_SRC_INCS "src/*.h*")
 
 # Sources to be switched according to active GUI implementation.
-set(TargetAppNameAsLibForTest_IMPL_SOURCES
-    src/_gui/src_WinCmdLine/resource_string.cpp
-)
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+    set(TargetAppNameAsLibForTest_IMPL_SOURCES
+        src/_gui/src_Qt/resource_string.cpp
+        )
+elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
+else ()
+    set(TargetAppNameAsLibForTest_IMPL_SOURCES
+        src/_gui/src_WinCmdLine/resource_string.cpp
+        )
+endif ()
 
 set(TargetAppNameAsLibForTest_SOURCES
     src/_gui/interface/resource_string.cpp
@@ -61,8 +71,14 @@ target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${CMAKE_BINARY_DI
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC src)
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${tooBasicCodeSupport_INCLUDE_DIRS})
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${tooString_INCLUDE_DIRS})
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+    target_include_directories(${TargetAppNameAsLibForTest} SYSTEM PUBLIC ${Qt5Quick_INCLUDE_DIRS})
+endif ()
 
 target_link_libraries(${TargetAppNameAsLibForTest}) # don't link header-only libs
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+    target_link_libraries(${TargetAppNameAsLibForTest} PUBLIC Qt5::Quick)
+endif ()
 
 set(${TargetAppNameAsLibForTest}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src
     CACHE INTERNAL "${TargetAppNameAsLibForTest}: include directories" FORCE)
@@ -70,8 +86,30 @@ set(${TargetAppNameAsLibForTest}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src
 
 ###############################################################################################
 
+# Only purpose of this so far: prevent showing an additional console window in Qt apps (happens for msvc in way
+# impossible to overlook, but also for mingw builds when not starting from IDE).
+if (WIN32)
+    set(WIN32_ON_OFF_SWITCH "WIN32")
+else ()
+    set(WIN32_ON_OFF_SWITCH "")
+endif ()
+
+qt5_add_resources(TargetAppName_RESOURCES gui/Qt/qml.qrc)
+
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+    set(TargetAppName_IMPL_SOURCES
+        src/_gui/src_Qt/main.cpp
+    )
+elseif ()
+    set(TargetAppName_IMPL_SOURCES
+        src/_gui/src_WinCmdLine/main.cpp
+    )
+endif ()
+
 add_executable(${TargetAppName}
-    src/_gui/src_WinCmdLine/main.cpp
+    ${WIN32_ON_OFF_SWITCH}
+    ${TargetAppName_RESOURCES}
+    ${TargetAppName_IMPL_SOURCES}
 )
 
 if (WIN32)
@@ -87,9 +125,16 @@ target_link_libraries(${TargetAppName} PRIVATE ${TargetAppNameAsLibForTest})
 
 set(TargetAppNameTest ${PROJECT_NAME}Test)
 
-set(TargetAppNameTest_IMPL_SOURCES
-    src/_gui/src_WinCmdLine/resource_string.test.cpp
-)
+
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+    file(GLOB_RECURSE TargetAppNameTest_IMPL_SOURCES
+        "src/_gui/src_Qt/*.test.cpp"
+        )
+else ()
+    file(GLOB_RECURSE TargetAppNameTest_IMPL_SOURCES
+        "src/_gui/src_WinCmdLine/*.test.cpp"
+        )
+endif ()
 
 set(TargetAppNameTest_SOURCES
     src/_gui/interface/resource_ids.test.cpp
@@ -109,8 +154,29 @@ endif ()
 
 set_target_properties(${TargetAppNameTest} PROPERTIES DEBUG_POSTFIX "d")
 
-target_link_libraries(${TargetAppNameTest} PRIVATE gtest_main ${TargetAppName})
+target_link_libraries(${TargetAppNameTest} PRIVATE gtest_main ${TargetAppNameAsLibForTest})
 
+# Postbuild step before running the test or the program. Here we use the program exe to determine the needed
+# binaries for both the program and the test exe - that was sufficient so far. The action needs to be coupled
+# to the postbuild of the test - and not the app - because that's what is getting called immediately automatically.
+# But it also always *must* be done, securing a properly complete deployment build for the app exe.
+if (WIN32)
+    if (NOT MSVC)
+        if (CMAKE_BUILD_TYPE MATCHES Debug)
+            set(TargetBuildType_for_qtdeploy "--debug")
+        else ()
+            set(TargetBuildType_for_qtdeploy "--release")
+        endif ()
+    else ()
+        set(TargetBuildType_for_qtdeploy)
+    endif ()
+    add_custom_command(
+        TARGET ${TargetAppNameTest} POST_BUILD
+        COMMAND qtdeploy_autodepends_win.bat "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" "${Qt_ver_comp_path}\\bin"
+            ${TargetBuildType_for_qtdeploy} --qmldir ..\\gui\\Qt $<TARGET_FILE_NAME:${TargetAppName}>
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        )
+endif ()
 
 add_custom_command(
   TARGET ${TargetAppNameTest} POST_BUILD

@@ -3,3 +3,4 @@ _build*
 bin
 bin_*
 lib
+lib_*
