@@ -25,19 +25,12 @@ set(TargetAppName ${PROJECT_NAME})
 
 include(${TOO_CMAKE_INC_DEFAULTS})
 
-set(uiwrap_USE_IMPLEMENTATION       "qt" CACHE STRING "Choose the desired UI implementation out of: qt (default), wx, ... or own")
-if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    add_definitions(-DUIW_CHOICE_QT)
-elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
-    add_definitions(-DUIW_CHOICE_WX)
-else ()
-    add_definitions(-DUIW_CHOICE_WIN_CMD)
-endif ()
-
 add_subdirectory(sdks)
 
-include (${TOO_CMAKE_INC_QT})
-find_package(Qt5Quick) # Widgets contains a.o.t. Core and Gui
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+    include (${TOO_CMAKE_INC_QT})
+    find_package(Qt5Quick) # Widgets contains a.o.t. Core and Gui
+endif ()
 
 file(GLOB_RECURSE TargetAppNameAsLibForTest_SRC_INCS "src/*.h*")
 
@@ -96,21 +89,20 @@ set(${TargetAppNameAsLibForTest}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src
 
 ###############################################################################################
 
-# Only purpose of this so far: prevent showing an additional console window in Qt apps (happens for msvc in way
-# impossible to overlook, but also for mingw builds when not starting from IDE).
-if (WIN32)
-    set(WIN32_ON_OFF_SWITCH "WIN32")
-else ()
-    set(WIN32_ON_OFF_SWITCH "")
-endif ()
-
-qt5_add_resources(TargetAppName_RESOURCES gui/Qt/qml.qrc)
-
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+    # Only purpose of this so far: prevent showing an additional console window in Qt apps (happens for msvc in way
+    # impossible to overlook, but also for mingw builds when not starting from IDE).
+    if (WIN32)
+        set(WIN32_ON_OFF_SWITCH "WIN32")
+    else ()
+        set(WIN32_ON_OFF_SWITCH "")
+    endif ()
+    qt5_add_resources(TargetAppName_RESOURCES gui/Qt/qml.qrc)
     set(TargetAppName_IMPL_SOURCES
         src/_gui/src_Qt/main.cpp
     )
-elseif ()
+else ()
+    set(TargetAppName_RESOURCES "")
     set(TargetAppName_IMPL_SOURCES
         src/_gui/src_WinCmdLine/main.cpp
     )

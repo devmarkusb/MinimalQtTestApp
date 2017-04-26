@@ -1,4 +1,5 @@
 #include "resource_string.h"
+#include "uiwrap_build_config.h"
 #ifdef UIW_CHOICE_QT
 #include "_gui/src_Qt/resource_string/resource_string.h"
 #else
