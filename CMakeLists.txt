@@ -38,12 +38,12 @@ file(GLOB_RECURSE TargetAppNameAsLibForTest_SRC_INCS "src/*.h*")
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     set(TargetAppNameAsLibForTest_IMPL_SOURCES
         src/_gui/src_Qt/resource_string/resource_string.cpp
-        )
+    )
 elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
 else ()
     set(TargetAppNameAsLibForTest_IMPL_SOURCES
         src/_gui/src_WinCmdLine/resource_string.cpp
-        )
+    )
 endif ()
 
 set(TargetAppNameAsLibForTest_SOURCES
@@ -73,12 +73,14 @@ target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${CMAKE_BINARY_DI
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC src)
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${tooBasicCodeSupport_INCLUDE_DIRS})
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${tooString_INCLUDE_DIRS})
+target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${Toolib_INCLUDE_DIRS})
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${uiwrap_INCLUDE_DIRS})
+target_include_directories(${TargetAppNameAsLibForTest} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_include_directories(${TargetAppNameAsLibForTest} SYSTEM PUBLIC ${Qt5Quick_INCLUDE_DIRS})
 endif ()
 
-target_link_libraries(${TargetAppNameAsLibForTest}) # don't link header-only libs
+target_link_libraries(${TargetAppNameAsLibForTest} PUBLIC Toolib)
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_link_libraries(${TargetAppNameAsLibForTest} PUBLIC Qt5::Quick)
 endif ()
@@ -108,8 +110,12 @@ else ()
     )
 endif ()
 
+include(${TOO_CMAKE_INC_UWP_TOOLS})
+obtain_UWP_resources("348B82EC-3E83-499C-91B3-A2DAB20E041A" "${CMAKE_SOURCE_DIR}/installer/_content_for_bindir" TargetAppName_UWP_ASSETS)
+
 add_executable(${TargetAppName}
     ${WIN32_ON_OFF_SWITCH}
+    ${TargetAppName_UWP_ASSETS}
     ${TargetAppName_RESOURCES}
     ${TargetAppName_IMPL_SOURCES}
 )
@@ -122,8 +128,16 @@ set_target_properties(${TargetAppName} PROPERTIES DEBUG_POSTFIX "d")
 
 target_link_libraries(${TargetAppName} PRIVATE ${TargetAppNameAsLibForTest})
 
+set(TOO_TEMP_TARGET ${TargetAppName})
+set(TOO_TEMP_QML_DIR ${CMAKE_SOURCE_DIR}/gui/Qt)
+include(${TOO_CMAKE_INC_QT_DEPLOY_TOO_TEMP_TARGET})
+
 
 ################################################################################################
+
+if (NOT TOO_BUILD_UNITTESTS)
+    return ()
+endif ()
 
 set(TargetAppNameTest ${PROJECT_NAME}Test)
 
@@ -158,27 +172,10 @@ set_target_properties(${TargetAppNameTest} PROPERTIES DEBUG_POSTFIX "d")
 
 target_link_libraries(${TargetAppNameTest} PRIVATE gtest_main ${TargetAppNameAsLibForTest})
 
-# Postbuild step before running the test or the program. Here we use the program exe to determine the needed
-# binaries for both the program and the test exe - that was sufficient so far. The action needs to be coupled
-# to the postbuild of the test - and not the app - because that's what is getting called immediately automatically.
-# But it also always *must* be done, securing a properly complete deployment build for the app exe.
-if (WIN32)
-    if (NOT MSVC)
-        if (CMAKE_BUILD_TYPE MATCHES Debug)
-            set(TargetBuildType_for_qtdeploy "--debug")
-        else ()
-            set(TargetBuildType_for_qtdeploy "--release")
-        endif ()
-    else ()
-        set(TargetBuildType_for_qtdeploy)
-    endif ()
-    add_custom_command(
-        TARGET ${TargetAppNameTest} POST_BUILD
-        COMMAND qtdeploy_autodepends_win.bat "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" "${Qt_ver_comp_path}\\bin"
-            ${TargetBuildType_for_qtdeploy} --qmldir ..\\gui\\Qt $<TARGET_FILE_NAME:${TargetAppName}>
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        )
-endif ()
+# commented-out since until now the test app isn't a Qt app
+#set(TOO_TEMP_TARGET ${TargetAppNameTest})
+#set(TOO_TEMP_QML_DIR ${CMAKE_SOURCE_DIR}/gui/Qt)
+#include(${TOO_CMAKE_INC_QT_DEPLOY_TOO_TEMP_TARGET})
 
 add_custom_command(
   TARGET ${TargetAppNameTest} POST_BUILD
