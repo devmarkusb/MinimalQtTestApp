@@ -111,7 +111,10 @@ else ()
 endif ()
 
 include(${TOO_CMAKE_INC_UWP_TOOLS})
-obtain_UWP_resources("348B82EC-3E83-499C-91B3-A2DAB20E041A" "${CMAKE_SOURCE_DIR}/installer/_content_for_bindir" TargetAppName_UWP_ASSETS)
+obtain_UWP_resources("348B82EC-3E83-499C-91B3-A2DAB20E041A"
+    "${CMAKE_SOURCE_DIR}/installer/_content_for_bindir"
+    "#336699"
+    TargetAppName_UWP_ASSETS)
 
 add_executable(${TargetAppName}
     ${WIN32_ON_OFF_SWITCH}
