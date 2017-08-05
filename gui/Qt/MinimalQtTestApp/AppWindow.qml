@@ -25,6 +25,10 @@ ApplicationWindow_ {
         id: extFontMetrics // don't change this specifier!
     }
 
+    ExtScale {
+        id: extScale // don't change this specifier!
+    }
+    
     ExtSpacing {
         id: extSpacing // don't change this specifier!
     }

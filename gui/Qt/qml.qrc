@@ -4,6 +4,8 @@
         <file>MinimalQtTestApp/AppWindow.qml</file>
 
 
+        <file>qt_qml_extensions/_shared/CustomScaler.qml</file>
+
         <file>qt_qml_extensions/colors_palette/ExtColors.qml</file>
         <file>qt_qml_extensions/colors_palette/ExtColorsTest.qml</file>
         <file>qt_qml_extensions/colors_palette/impl/ColorsActive.qml</file>
@@ -16,9 +18,11 @@
         <file>qt_qml_extensions/colors_palette/schemes/Def.qml</file>
         <file>qt_qml_extensions/colors_palette/schemes/Inverse.qml</file>
         <file>qt_qml_extensions/colors_palette/schemes/PurpleGreen.qml</file>
+
         <file>qt_qml_extensions/controls/_shared/CharColorSwitch_.qml</file>
         <file>qt_qml_extensions/controls/_shared/impl/CfgControls.qml</file>
         <file>qt_qml_extensions/controls/_shared/impl/checkmark.png</file>
+        <file>qt_qml_extensions/controls/_shared/impl/delete_cross.svg</file>
         <file>qt_qml_extensions/controls/_shared/impl/obtainButtonProps.js</file>
         <file>qt_qml_extensions/controls/_shared/impl/obtainControlProps.js</file>
         <file>qt_qml_extensions/controls/_shared/impl/obtainListDelegateProps.js</file>
@@ -57,7 +61,7 @@
         <file>qt_qml_extensions/controls/minimal/TextAreaScrollable_.qml</file>
         <file>qt_qml_extensions/controls/minimal/TextField_.qml</file>
         <file>qt_qml_extensions/controls/minimal/TextFieldBrowseBtnRow_.qml</file>
-        <file>qt_qml_extensions/controls/minimal/TextFieldLabelRow_.qml</file>
+        <file>qt_qml_extensions/controls/minimal/TextFieldWithLabel_.qml</file>
         <file>qt_qml_extensions/controls/minimal/TextInput_.qml</file>
         <file>qt_qml_extensions/controls/minimal/ToolTip_.qml</file>
         <file>qt_qml_extensions/controls/QC1_def/Button_.qml</file>
@@ -97,19 +101,28 @@
         <file>qt_qml_extensions/controls/QC2_def/ToolTip_.qml</file>
         <file>qt_qml_extensions/controls/spheres.svg</file>
         <file>qt_qml_extensions/controls/TestHelperBox.qml</file>
+        <file>qt_qml_extensions/controls/TestHelperCornerMarkers.qml</file>
+
         <file>qt_qml_extensions/core/noop.js</file>
+        <file>qt_qml_extensions/core/os.js</file>
+        
         <file>qt_qml_extensions/fonts/ExtFont.qml</file>
         <file>qt_qml_extensions/fonts/ExtFontMetrics.qml</file>
         <file>qt_qml_extensions/fonts/ExtFontTest.qml</file>
         <file>qt_qml_extensions/fonts/impl/TestRectangle.qml</file>
-        <file>qt_qml_extensions/fonts/schemes/CopyPasteTemplate.qml</file>
         <file>qt_qml_extensions/fonts/schemes/Def.qml</file>
         <file>qt_qml_extensions/fonts/schemes/DefQC1.qml</file>
         <file>qt_qml_extensions/fonts/schemes/DefQC2.qml</file>
         <file>qt_qml_extensions/fonts/schemes/Mistral.qml</file>
+        
         <file>qt_qml_extensions/layout/ExtLayoutTest.qml</file>
+        <file>qt_qml_extensions/layout/ExtScale.qml</file>
         <file>qt_qml_extensions/layout/ExtSpacing.qml</file>
         <file>qt_qml_extensions/layout/impl/TestHelperObj.qml</file>
         <file>qt_qml_extensions/layout/impl/TestRectangle.qml</file>
+
+        <file>qt_qml_extensions/TestApp/gui/AppWindow.qml</file>
+        <file>qt_qml_extensions/TestApp/gui/Draft.qml</file>
+        <file>qt_qml_extensions/TestApp/gui/dummydata/cfgModel.qml</file>
     </qresource>
 </RCC>

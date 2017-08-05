@@ -20,7 +20,6 @@ add_subdirectory(sdks/ToolsFL/tooBuildEnv)
 include(${TOO_CMAKE_INC_BUILDNR})
 project(MinimalQtTestApp VERSION 0.1.${BUILD_NR}.0)
 message(STATUS "project version: " ${PROJECT_VERSION})
-include(${TOO_CMAKE_INC_DEPLOYMENT_BUILD})
 set(TargetAppName ${PROJECT_NAME})
 
 include(${TOO_CMAKE_INC_DEFAULTS})
@@ -111,7 +110,14 @@ else ()
 endif ()
 
 include(${TOO_CMAKE_INC_UWP_TOOLS})
-obtain_UWP_resources("348B82EC-3E83-499C-91B3-A2DAB20E041A"
+too_obtain_UWP_resources(
+    "MinimalQtTestApp"
+    "Enterprise"
+    "MinimalQtTestApp"
+    ""
+    ""
+    ""
+    "${PROJECT_VERSION}"
     "${CMAKE_SOURCE_DIR}/installer/_content_for_bindir"
     "#336699"
     TargetAppName_UWP_ASSETS)
