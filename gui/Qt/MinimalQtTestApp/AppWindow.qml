@@ -74,6 +74,21 @@ ApplicationWindow_ {
         console.log("rootAppWindow onClosing exiting...")
     }
 
+    Label_ {
+        id: nonsenseTxt
+        text: "Ooops, I'm gone..."
+        anchors.centerIn: parent
+        visible: false
+    }
+
+    Button_ {
+        text: "Click me!"
+        anchors.centerIn: parent
+        onClicked: {
+            visible = false
+            nonsenseTxt.visible = true
+        }
+    }
 
     // for experimenting
     //Draft {}
