@@ -16,7 +16,6 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-include(sdks/ToolsFL/tooBuildEnv/cmake_util/deployment_build.cmake)
 add_subdirectory(sdks/ToolsFL/tooBuildEnv)
 include(${TOO_CMAKE_INC_BUILDNR})
 project(MinimalQtTestApp VERSION 0.1.${BUILD_NR}.0)
@@ -121,6 +120,7 @@ too_obtain_UWP_resources(
     "${PROJECT_VERSION}"
     "${CMAKE_SOURCE_DIR}/installer/_content_for_bindir"
     "#336699"
+    ""
     TargetAppName_UWP_ASSETS)
 
 add_executable(${TargetAppName}
