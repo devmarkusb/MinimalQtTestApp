@@ -121,7 +121,15 @@ too_obtain_UWP_resources(
     "${CMAKE_SOURCE_DIR}/installer/_content_for_bindir"
     "#336699"
     ""
-    TargetAppName_UWP_ASSETS)
+    TargetAppName_UWP_ASSETS
+)
+
+set(TargetAppName_input
+    ${WIN32_ON_OFF_SWITCH}
+    ${TargetAppName_UWP_ASSETS}
+    ${TargetAppName_RESOURCES}
+    ${TargetAppName_IMPL_SOURCES}
+)
 
 if (ANDROID)
     add_library(${TargetAppName} SHARED ${TargetAppName_input})
