@@ -134,7 +134,14 @@ set(TargetAppName_input
 if (ANDROID)
     add_library(${TargetAppName} SHARED ${TargetAppName_input})
     include(${TOO_CMAKE_INCDIR}/sdks/qt-android-cmake/AddQtAndroidApk.cmake)
-    add_qt_android_apk(${TargetAppName}_apk ${TargetAppName})
+    add_qt_android_apk(${TargetAppName}_apk ${TargetAppName}
+        DEPENDS Toolib
+        VERSION_CODE 1
+        NAME "MinimalQtTestApp"
+        PACKAGE_NAME "org.enterprise.minimalqttestapp"
+        BUILDTOOLS_REVISION "26.0.1"
+        INSTALL
+    )
 else ()
     add_executable(${TargetAppName} ${TargetAppName_input})
 endif ()

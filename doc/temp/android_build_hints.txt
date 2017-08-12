@@ -1,0 +1,22 @@
+cmake+qt to android under windows
+
+- compile fixes for gcc 4.9
+- fix c:\projects\externlibs\Qt\5.9.1\android_armv7\lib\cmake\Qt5Core\Qt5CoreConfigExtras.cmake
+- install android sdk level 13
+- adapt build.gradle like
+    compileSdkVersion 13 //androidCompileSdkVersion.toInteger()
+    buildToolsVersion "26.0.1" //androidBuildToolsVersion
+- adapt qtdeploy.json
+    "ndk-host": "windows"
+    "sdk": "c:/Users/Markus/AppData/Local/Android/sdk"
+- Qt\5.9.1\android_armv7\src\android\java\src\org\qtproject\qt5\android\bindings\QtService.java 
+    -comment out: onTaskRemoved, onTrimMemory references to super class
+
+- finally
+    set ANDROID_NDK=c:\ProgramData\Microsoft\AndroidNDK\android-ndk-r13b
+    set ANDROID_SDK=C:\Users\Markus\AppData\Local\Android\Sdk
+    set JAVA_HOME=C:\Program Files (x86)\Java\jdk1.8.0_112
+    set Qt5_android=c:\projects\externlibs\Qt\5.9.1\android_armv7
+    set Qt5_host=c:\projects\externlibs\Qt\5.9.1\android_armv7\mkspecs\win32-g++
+    cmake
+    cmake --build _build/android --config Debug
