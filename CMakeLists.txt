@@ -123,12 +123,13 @@ too_obtain_UWP_resources(
     ""
     TargetAppName_UWP_ASSETS)
 
-add_executable(${TargetAppName}
-    ${WIN32_ON_OFF_SWITCH}
-    ${TargetAppName_UWP_ASSETS}
-    ${TargetAppName_RESOURCES}
-    ${TargetAppName_IMPL_SOURCES}
-)
+if (ANDROID)
+    add_library(${TargetAppName} SHARED ${TargetAppName_input})
+    include(${TOO_CMAKE_INCDIR}/sdks/qt-android-cmake/AddQtAndroidApk.cmake)
+    add_qt_android_apk(${TargetAppName}_apk ${TargetAppName})
+else ()
+    add_executable(${TargetAppName} ${TargetAppName_input})
+endif ()
 
 if (WIN32)
     set_property(TARGET ${TargetAppName} APPEND PROPERTY COMPILE_DEFINITIONS UNICODE _UNICODE)
