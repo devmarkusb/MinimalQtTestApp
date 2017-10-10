@@ -131,6 +131,8 @@ set(TargetAppName_input
     ${TargetAppName_IMPL_SOURCES}
 )
 
+set(TOO_TEMP_QML_DIR ${CMAKE_SOURCE_DIR}/gui/Qt)
+
 if (ANDROID)
     add_library(${TargetAppName} SHARED ${TargetAppName_input})
     include(${TOO_CMAKE_INCDIR}/sdks/qt-android-cmake/AddQtAndroidApk.cmake)
@@ -138,9 +140,9 @@ if (ANDROID)
         DEPENDS Toolib
         VERSION_CODE 1
         NAME "MinimalQtTestApp"
+        QML_SOURCE_DIR ${TOO_TEMP_QML_DIR}
         PACKAGE_NAME "org.enterprise.minimalqttestapp"
         BUILDTOOLS_REVISION "26.0.1"
-        INSTALL
     )
 else ()
     add_executable(${TargetAppName} ${TargetAppName_input})
@@ -155,7 +157,6 @@ set_target_properties(${TargetAppName} PROPERTIES DEBUG_POSTFIX "d")
 target_link_libraries(${TargetAppName} PRIVATE ${TargetAppNameAsLibForTest})
 
 set(TOO_TEMP_TARGET ${TargetAppName})
-set(TOO_TEMP_QML_DIR ${CMAKE_SOURCE_DIR}/gui/Qt)
 include(${TOO_CMAKE_INC_QT_DEPLOY_TOO_TEMP_TARGET})
 
 

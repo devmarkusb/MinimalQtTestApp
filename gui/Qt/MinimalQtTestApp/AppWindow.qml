@@ -90,6 +90,22 @@ ApplicationWindow_ {
         }
     }
 
+    Rectangle {
+        width: 10
+        height: 10
+        color: "orange"
+        anchors.left: parent.left
+        anchors.top: parent.top
+    }
+
+    Rectangle {
+        width: 10
+        height: 10
+        color: "orange"
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+    }
+
     // for experimenting
     //Draft {}
 }

@@ -1,22 +1,46 @@
 cmake+qt to android under windows
 
-- compile fixes for gcc 4.9
+
+always prepare the correct environment vars, e.g.
+    set ANDROID_NDK=c:\ProgramData\Microsoft\AndroidNDK\android-ndk-r13b\
+    set ANDROID_SDK=C:\Users\Markus\AppData\Local\Android\Sdk or c:\Program Files (x86)\Android\android-sdk\
+    set JAVA_HOME=C:\Program Files (x86)\Java\jdk1.8.0_131
+    set Qt5_android=c:\projects\externlibs\Qt\5.9.1\android_armv7 (_x86 doesn't work :()
+    set Qt5_host=c:\projects\externlibs\Qt\5.9.1\android_armv7\mkspecs\win32-g++ 
+
+run
+    cmake gui with -G"MinGW Makefiles" and qt-android-cmake/toolchain/android.toolchain.cmake
+    cmake --build _build/android_arm --config Debug
+    
+    Find output here: android_arm\build\outputs\apk\
+
+Qt hotfixes (check with every Qt update)
 - fix c:\projects\externlibs\Qt\5.9.1\android_armv7\lib\cmake\Qt5Core\Qt5CoreConfigExtras.cmake
-- install android sdk level 13
-- adapt build.gradle like
-    compileSdkVersion 13 //androidCompileSdkVersion.toInteger()
-    buildToolsVersion "26.0.1" //androidBuildToolsVersion
-- adapt qtdeploy.json
-    "ndk-host": "windows"
-    "sdk": "c:/Users/Markus/AppData/Local/Android/sdk"
+    comment out line
+        set_property(TARGET Qt5::Core PROPERTY INTERFACE_COMPILE_FEATURES cxx_decltype)
 - Qt\5.9.1\android_armv7\src\android\java\src\org\qtproject\qt5\android\bindings\QtService.java 
     -comment out: onTaskRemoved, onTrimMemory references to super class
 
-- finally
-    set ANDROID_NDK=c:\ProgramData\Microsoft\AndroidNDK\android-ndk-r13b
-    set ANDROID_SDK=C:\Users\Markus\AppData\Local\Android\Sdk
-    set JAVA_HOME=C:\Program Files (x86)\Java\jdk1.8.0_112
-    set Qt5_android=c:\projects\externlibs\Qt\5.9.1\android_armv7
-    set Qt5_host=c:\projects\externlibs\Qt\5.9.1\android_armv7\mkspecs\win32-g++
-    cmake
-    cmake --build _build/android --config Debug
+prerequisite installations
+- android sdk, at least level 13 (16 would be ok/best)
+- java jdk
+- android ndk (r13b)
+
+initially once
+- compile fixes for gcc 4.9
+
+problems, already circumvented by changing qt-android-cmake
+- set ANDROID_NDK_HOST_SYSTEM_NAME=windows (but doesn't work, since set by toolchain)
+    or adapt qtdeploy.json after cmake run
+    "ndk-host": "windows"
+    and add missing
+    "qml-root-path": "C:/projects/apps/MinimalQtTestApp/gui/Qt"
+    to the json file
+- at least for Andy emulator you need to adapt AndroidManifest.xml.in to at most
+    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="19"/>
+    (13 is not enough for deployment with qt-android-cmake)
+
+    
+Cf.
+https://www.codeproject.com/Tips/1191289/How-to-Make-a-Cplusplus-Qt-Android-Project-with-CM
+https://github.com/LaurentGomila/qt-android-cmake
