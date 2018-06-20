@@ -1,27 +1,27 @@
 [submodule "sdks/ToolsFL/tooBuildEnv"]
 	path = sdks/ToolsFL/tooBuildEnv
-	url = c:/projects/git/libs/ToolsFL/tooBuildEnv/
+	url = /home/markus/projects/git/libs/ToolsFL/tooBuildEnv/
 [submodule "sdks/ToolsFL/tooBasicCodeSupport"]
 	path = sdks/ToolsFL/tooBasicCodeSupport
-	url = c:/projects/git/libs/ToolsFL/tooBasicCodeSupport/
+	url = /home/markus/projects/git/libs/ToolsFL/tooBasicCodeSupport/
 [submodule "sdks/ToolsFL/tooString"]
 	path = sdks/ToolsFL/tooString
-	url = c:/projects/git/libs/ToolsFL/tooString/
+	url = /home/markus/projects/git/libs/ToolsFL/tooString/
 [submodule "sdks/googletest"]
 	path = sdks/googletest
-	url = c:/projects/git/sdks/unit_test/googletest/
+	url = /home/markus/projects/git/sdks/unit_test/googletest/
 [submodule "sdks/uiwrap"]
 	path = sdks/uiwrap
-	url = c:/projects/git/libs/uiwrap/
+	url = /home/markus/projects/git/libs/uiwrap/
 [submodule "sdks/Toolib"]
 	path = sdks/Toolib
-	url = c:/projects/git/libs/Toolib/
+	url = /home/markus/projects/git/libs/Toolib/
 [submodule "sdks/ToolsFL/tooLinklib"]
 	path = sdks/ToolsFL/tooLinklib
-	url = c:/projects/git/libs/ToolsFL/tooLinklib/
+	url = /home/markus/projects/git/libs/ToolsFL/tooLinklib/
 [submodule "sdks/ToolsFL/tooMem"]
 	path = sdks/ToolsFL/tooMem
-	url = c:/projects/git/libs/ToolsFL/tooMem/
+	url = /home/markus/projects/git/libs/ToolsFL/tooMem/
 [submodule "gui/Qt/qt_qml_extensions"]
 	path = gui/Qt/qt_qml_extensions
-	url = c:/projects/git/qt_qml_extensions/
+	url = /home/markus/projects/git/qt_qml_extensions/
