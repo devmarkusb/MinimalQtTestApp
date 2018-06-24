@@ -24,6 +24,10 @@ set(TargetAppName ${PROJECT_NAME})
 
 include(${TOO_CMAKE_INC_DEFAULTS})
 
+set(TOO_USE_BOOST_ver1 "1" CACHE STRING "Use boost version ver1.ver2.ver3")
+set(TOO_USE_BOOST_ver2 "64" CACHE STRING "Cf. TOO_USE_BOOST_ver1")
+set(TOO_USE_BOOST_ver3 "0" CACHE STRING "Cf. TOO_USE_BOOST_ver1")
+
 add_subdirectory(sdks)
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
