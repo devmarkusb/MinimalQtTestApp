@@ -28,10 +28,12 @@ std::string getString(res::ID id)
     return uiw::implQt::qs2s(getQString(id));
 }
 
-QString getContentQString(const res::ID_alnum&) { throw too::not_implemented{"getContentString"}; }
+QString getContentQString(const res::ID_alnum&) { throw too::not_implemented{"getContentQtString"}; }
 
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_4702_BEGIN"
 std::string getContentString(const res::ID_alnum& id)
 {
     return uiw::implQt::qs2s(getContentQString(id));
 }
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_END"
 } // res_Qt
