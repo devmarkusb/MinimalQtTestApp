@@ -1,12 +1,12 @@
 #include "resource_string.h"
-#include "Toolib/enum_cast.h"
-#include "Toolib/error.h"
-#include "Toolib/trace.h"
+#include "toolib/enum_cast.h"
+#include "toolib/error.h"
+#include "toolib/trace.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QString>
 #include <QTranslator>
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 
 
 namespace res_Qt
@@ -30,10 +30,10 @@ std::string getString(res::ID id)
 
 QString getContentQString(const res::ID_alnum&) { throw too::not_implemented{"getContentQtString"}; }
 
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_4702_BEGIN"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNING_4702_BEGIN"
 std::string getContentString(const res::ID_alnum& id)
 {
     return uiw::implQt::qs2s(getContentQString(id));
 }
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_END"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNING_END"
 } // res_Qt

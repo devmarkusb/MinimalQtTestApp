@@ -1,8 +1,8 @@
 #include "_gui/interface/resource_string.h"
 #include "MinimalQtTestApp_build_config.h"
-#include "Toolib/assert.h"
-#include "Toolib/error.h"
-#include "Toolib/trace.h"
+#include "toolib/assert.h"
+#include "toolib/error.h"
+#include "toolib/trace.h"
 #include <conio.h>
 #include <iostream>
 

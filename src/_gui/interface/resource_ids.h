@@ -1,8 +1,8 @@
 #ifndef RESOURCE_IDS_H_nexfx783hgfy3zv180
 #define RESOURCE_IDS_H_nexfx783hgfy3zv180
 
-#include "Toolib/assert.h"
-#include "Toolib/trace.h"
+#include "toolib/assert.h"
+#include "toolib/trace.h"
 #include <map>
 #include <sstream>
 #include <stdexcept>

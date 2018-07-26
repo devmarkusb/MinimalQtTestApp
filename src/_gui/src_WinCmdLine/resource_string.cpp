@@ -1,7 +1,7 @@
 #include "resource_string.h"
-#include "Toolib/enum_cast.h"
-#include "Toolib/error.h"
-#include "Toolib/trace.h"
+#include "toolib/enum_cast.h"
+#include "toolib/error.h"
+#include "toolib/trace.h"
 
 
 namespace res_CmdLine

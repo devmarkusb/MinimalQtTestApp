@@ -5,8 +5,8 @@
 #else
 #include "_gui/src_WinCmdLine/resource_string.h"
 #endif
-#include "Toolib/assert.h"
-#include "Toolib/string/string_misc.h"
+#include "toolib/assert.h"
+#include "toolib/string/string_misc.h"
 
 
 namespace res

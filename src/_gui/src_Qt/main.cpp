@@ -1,9 +1,9 @@
-#include "Toolib/date_time/date_time.h"
-#include "Toolib/trace.h"
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/date_time/date_time.h"
+#include "toolib/trace.h"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 
 namespace test
 {
