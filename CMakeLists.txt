@@ -29,7 +29,7 @@ set(TOO_USE_BOOST_ver2 "64" CACHE STRING "Cf. TOO_USE_BOOST_ver1")
 set(TOO_USE_BOOST_ver3 "0" CACHE STRING "Cf. TOO_USE_BOOST_ver1")
 
 add_subdirectory(sdks)
-add_subdirectory(gui/Qt/qt_qml_extensions)
+add_subdirectory(gui/Qt/qt_qml_extensions) # for test app
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     include (${TOO_CMAKE_INC_QT})
@@ -63,14 +63,6 @@ add_library(${TargetAppNameAsLibForTest} STATIC
     ${TargetAppNameAsLibForTest_SRC_INCS}
 )
 
-set_target_properties(${TargetAppNameAsLibForTest} PROPERTIES POSITION_INDEPENDENT_CODE ON)
-
-if (WIN32)
-    set_property(TARGET ${TargetAppNameAsLibForTest} APPEND PROPERTY COMPILE_DEFINITIONS UNICODE _UNICODE)
-endif ()
-
-set_target_properties(${TargetAppNameAsLibForTest} PROPERTIES DEBUG_POSTFIX "d")
-
 configure_file(${TargetAppName}_build_config.h.in ${CMAKE_BINARY_DIR}/${TargetAppName}_build_config.h)
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${CMAKE_BINARY_DIR})
 
@@ -87,6 +79,8 @@ target_link_libraries(${TargetAppNameAsLibForTest} PUBLIC toolib)
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_link_libraries(${TargetAppNameAsLibForTest} PUBLIC Qt5::Quick)
 endif ()
+
+too_set_target_defaults(${TargetAppNameAsLibForTest})
 
 set(${TargetAppNameAsLibForTest}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src
     CACHE INTERNAL "${TargetAppNameAsLibForTest}: include directories" FORCE)
@@ -152,13 +146,9 @@ else ()
     add_executable(${TargetAppName} ${TargetAppName_input})
 endif ()
 
-if (WIN32)
-    set_property(TARGET ${TargetAppName} APPEND PROPERTY COMPILE_DEFINITIONS UNICODE _UNICODE)
-endif ()
-
-set_target_properties(${TargetAppName} PROPERTIES DEBUG_POSTFIX "d")
-
 target_link_libraries(${TargetAppName} PRIVATE ${TargetAppNameAsLibForTest})
+
+too_set_target_defaults(${TargetAppNameAsLibForTest})
 
 include(${TOO_CMAKE_INC_QT_DEPLOY})
 too_qt_deploy(${TargetAppName} "")
@@ -195,16 +185,11 @@ add_executable(${TargetAppNameTest}
     ${TargetAppNameAsLibForTest_SRC_INCS}
 )
 
-if (WIN32)
-    set_property(TARGET ${TargetAppNameTest} APPEND PROPERTY COMPILE_DEFINITIONS UNICODE _UNICODE)
-endif ()
-
-set_target_properties(${TargetAppNameTest} PROPERTIES DEBUG_POSTFIX "d")
-
 target_link_libraries(${TargetAppNameTest} PRIVATE gtest_main ${TargetAppNameAsLibForTest})
 
+too_set_target_defaults(${TargetAppNameTest})
+
 # commented-out since until now the test app isn't a Qt app
-#include(${TOO_CMAKE_INC_QT_DEPLOY})
 #too_qt_deploy(${TargetAppNameTest} ${CMAKE_SOURCE_DIR}/gui/Qt)
 
 add_custom_command(
