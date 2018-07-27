@@ -29,6 +29,7 @@ set(TOO_USE_BOOST_ver2 "64" CACHE STRING "Cf. TOO_USE_BOOST_ver1")
 set(TOO_USE_BOOST_ver3 "0" CACHE STRING "Cf. TOO_USE_BOOST_ver1")
 
 add_subdirectory(sdks)
+add_subdirectory(gui/Qt/qt_qml_extensions)
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     include (${TOO_CMAKE_INC_QT})
@@ -74,16 +75,15 @@ configure_file(${TargetAppName}_build_config.h.in ${CMAKE_BINARY_DIR}/${TargetAp
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${CMAKE_BINARY_DIR})
 
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC src)
-target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${tooBasicCodeSupport_INCLUDE_DIRS})
-target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${tooString_INCLUDE_DIRS})
-target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${Toolib_INCLUDE_DIRS})
+target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${tfl_INCLUDE_DIRS})
+target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${toolib_INCLUDE_DIRS})
 target_include_directories(${TargetAppNameAsLibForTest} PUBLIC ${uiwrap_INCLUDE_DIRS})
 target_include_directories(${TargetAppNameAsLibForTest} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_include_directories(${TargetAppNameAsLibForTest} SYSTEM PUBLIC ${Qt5Quick_INCLUDE_DIRS})
 endif ()
 
-target_link_libraries(${TargetAppNameAsLibForTest} PUBLIC Toolib)
+target_link_libraries(${TargetAppNameAsLibForTest} PUBLIC toolib)
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_link_libraries(${TargetAppNameAsLibForTest} PUBLIC Qt5::Quick)
 endif ()
@@ -141,7 +141,7 @@ if (ANDROID)
     add_library(${TargetAppName} SHARED ${TargetAppName_input})
     include(${TOO_CMAKE_INCDIR}/sdks/qt-android-cmake/AddQtAndroidApk.cmake)
     add_qt_android_apk(${TargetAppName}_apk ${TargetAppName}
-        DEPENDS Toolib
+        DEPENDS toolib
         VERSION_CODE 1
         NAME "MinimalQtTestApp"
         QML_SOURCE_DIR ${TOO_TEMP_QML_DIR}
@@ -160,8 +160,8 @@ set_target_properties(${TargetAppName} PROPERTIES DEBUG_POSTFIX "d")
 
 target_link_libraries(${TargetAppName} PRIVATE ${TargetAppNameAsLibForTest})
 
-set(TOO_TEMP_TARGET ${TargetAppName})
-include(${TOO_CMAKE_INC_QT_DEPLOY_TOO_TEMP_TARGET})
+include(${TOO_CMAKE_INC_QT_DEPLOY})
+too_qt_deploy(${TargetAppName} "")
 
 
 ################################################################################################
@@ -204,9 +204,8 @@ set_target_properties(${TargetAppNameTest} PROPERTIES DEBUG_POSTFIX "d")
 target_link_libraries(${TargetAppNameTest} PRIVATE gtest_main ${TargetAppNameAsLibForTest})
 
 # commented-out since until now the test app isn't a Qt app
-#set(TOO_TEMP_TARGET ${TargetAppNameTest})
-#set(TOO_TEMP_QML_DIR ${CMAKE_SOURCE_DIR}/gui/Qt)
-#include(${TOO_CMAKE_INC_QT_DEPLOY_TOO_TEMP_TARGET})
+#include(${TOO_CMAKE_INC_QT_DEPLOY})
+#too_qt_deploy(${TargetAppNameTest} ${CMAKE_SOURCE_DIR}/gui/Qt)
 
 add_custom_command(
   TARGET ${TargetAppNameTest} POST_BUILD

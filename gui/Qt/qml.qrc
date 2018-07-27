@@ -121,8 +121,8 @@
         <file>qt_qml_extensions/layout/impl/TestHelperObj.qml</file>
         <file>qt_qml_extensions/layout/impl/TestRectangle.qml</file>
 
-        <file>qt_qml_extensions/TestApp/gui/AppWindow.qml</file>
-        <file>qt_qml_extensions/TestApp/gui/Draft.qml</file>
-        <file>qt_qml_extensions/TestApp/gui/dummydata/cfgModel.qml</file>
+        <file>qt_qml_extensions/testapp/gui/AppWindow.qml</file>
+        <file>qt_qml_extensions/testapp/gui/Draft.qml</file>
+        <file>qt_qml_extensions/testapp/gui/dummydata/cfgModel.qml</file>
     </qresource>
 </RCC>
