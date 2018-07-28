@@ -80,6 +80,8 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_link_libraries(${TargetAppNameAsLibForTest} PUBLIC Qt5::Quick)
 endif ()
 
+too_set_target_defaults(${TargetAppNameAsLibForTest})
+
 set(${TargetAppNameAsLibForTest}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src
     CACHE INTERNAL "${TargetAppNameAsLibForTest}: include directories" FORCE)
 
