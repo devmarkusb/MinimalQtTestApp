@@ -17,12 +17,12 @@
 cmake_minimum_required(VERSION 3.4.1)
 
 include(sdks/tfl/buildenv/cmake_util.cmake)
-include(${TOO_CMAKE_INC_BUILDNR})
+too_include(buildnr.cmake)
 project(MinimalQtTestApp VERSION 0.1.${BUILD_NR}.0)
 message(STATUS "project version: " ${PROJECT_VERSION})
 set(TargetAppName ${PROJECT_NAME})
 
-include(${TOO_CMAKE_INC_DEFAULTS})
+too_include(defaults.cmake)
 
 set(TOO_USE_BOOST_ver1 "1" CACHE STRING "Use boost version ver1.ver2.ver3")
 set(TOO_USE_BOOST_ver2 "64" CACHE STRING "Cf. TOO_USE_BOOST_ver1")
@@ -32,7 +32,7 @@ add_subdirectory(sdks)
 add_subdirectory(gui/Qt/qt_qml_extensions) # for test app
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    include (${TOO_CMAKE_INC_QT})
+    too_include(qt.cmake)
     find_package(Qt5Quick) # Widgets contains a.o.t. Core and Gui
 endif ()
 
@@ -107,7 +107,7 @@ else ()
     )
 endif ()
 
-include(${TOO_CMAKE_INC_UWP_TOOLS})
+too_include(uwp_tools.cmake)
 too_obtain_UWP_resources(
     "MinimalQtTestApp"
     "Enterprise"
@@ -150,7 +150,7 @@ target_link_libraries(${TargetAppName} PRIVATE ${TargetAppNameAsLibForTest})
 
 too_set_target_defaults(${TargetAppNameAsLibForTest})
 
-include(${TOO_CMAKE_INC_QT_DEPLOY})
+too_include(qt_deploy.cmake)
 too_qt_deploy(${TargetAppName} "")
 
 
