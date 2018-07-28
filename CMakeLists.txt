@@ -146,7 +146,7 @@ endif ()
 
 target_link_libraries(${TargetAppName} PRIVATE ${TargetAppNameAsLibForTest})
 
-too_set_target_defaults(${TargetAppNameAsLibForTest})
+too_set_target_defaults(${TargetAppName})
 
 too_include(qt_deploy.cmake)
 too_qt_deploy(${TargetAppName} "")
@@ -190,7 +190,4 @@ too_set_target_defaults(${TargetAppNameTest})
 # commented-out since until now the test app isn't a Qt app
 #too_qt_deploy(${TargetAppNameTest} ${CMAKE_SOURCE_DIR}/gui/Qt)
 
-add_custom_command(
-  TARGET ${TargetAppNameTest} POST_BUILD
-  COMMAND ${TargetAppNameTest}
-)
+too_run_target_postbuild(${TargetAppNameTest})
