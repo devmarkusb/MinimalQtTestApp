@@ -129,7 +129,7 @@ set(TargetAppName_input
     ${TargetAppName_IMPL_SOURCES}
 )
 
-set(TOO_TEMP_QML_DIR ${CMAKE_SOURCE_DIR}/gui/Qt)
+set(TargetAppName_QML_DIR ${CMAKE_SOURCE_DIR}/gui/Qt)
 
 if (ANDROID)
     add_library(${TargetAppName} SHARED ${TargetAppName_input})
@@ -138,7 +138,7 @@ if (ANDROID)
         DEPENDS toolib
         VERSION_CODE 1
         NAME "MinimalQtTestApp"
-        QML_SOURCE_DIR ${TOO_TEMP_QML_DIR}
+        QML_SOURCE_DIR ${TargetAppName_QML_DIR}
         PACKAGE_NAME "org.enterprise.minimalqttestapp"
         BUILDTOOLS_REVISION "26.0.1"
     )
@@ -151,7 +151,7 @@ target_link_libraries(${TargetAppName} PRIVATE ${TargetAppNameAsLibForTest})
 too_set_target_defaults(${TargetAppName})
 
 too_include(qt_deploy.cmake)
-too_qt_deploy(${TargetAppName} "")
+too_qt_deploy(${TargetAppName} ${TargetAppName_QML_DIR})
 
 
 ################################################################################################
@@ -190,6 +190,6 @@ target_link_libraries(${TargetAppNameTest} PRIVATE gtest_main ${TargetAppNameAsL
 too_set_target_defaults(${TargetAppNameTest})
 
 # commented-out since until now the test app isn't a Qt app
-#too_qt_deploy(${TargetAppNameTest} ${CMAKE_SOURCE_DIR}/gui/Qt)
+#too_qt_deploy(${TargetAppNameTest} ${TargetAppName_QML_DIR})
 
 too_run_target_postbuild(${TargetAppNameTest})
