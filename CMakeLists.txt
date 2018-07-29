@@ -133,7 +133,7 @@ set(TargetAppName_QML_DIR ${CMAKE_SOURCE_DIR}/gui/Qt)
 
 if (ANDROID)
     add_library(${TargetAppName} SHARED ${TargetAppName_input})
-    include(${TOO_CMAKE_INCDIR}/sdks/qt-android-cmake/AddQtAndroidApk.cmake)
+    include(${TOO_CMAKE_UTIL_DIR}/sdks/qt-android-cmake/AddQtAndroidApk.cmake)
     add_qt_android_apk(${TargetAppName}_apk ${TargetAppName}
         DEPENDS toolib
         VERSION_CODE 1
