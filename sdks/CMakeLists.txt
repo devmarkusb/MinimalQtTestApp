@@ -1,4 +1,6 @@
-too_include(googletest_as_subdir.cmake)
+if (TOO_BUILD_UNITTESTS)
+    too_include(googletest_as_subdir.cmake)
+endif ()
 
 # no ToolsFL/tooBuildEnv here (little part of it is needed much earlier for the build number mechanism)
 add_subdirectory(tfl)

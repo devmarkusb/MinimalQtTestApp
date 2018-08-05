@@ -75,7 +75,7 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_include_directories(${TargetAppNameAsLibForTest} SYSTEM PUBLIC ${Qt5Quick_INCLUDE_DIRS})
 endif ()
 
-target_link_libraries(${TargetAppNameAsLibForTest} PUBLIC toolib)
+target_link_libraries(${TargetAppNameAsLibForTest} PUBLIC toolib uiwrap)
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_link_libraries(${TargetAppNameAsLibForTest} PUBLIC Qt5::Quick)
 endif ()
@@ -133,15 +133,6 @@ set(TargetAppName_QML_DIR ${CMAKE_SOURCE_DIR}/gui/Qt)
 
 if (ANDROID)
     add_library(${TargetAppName} SHARED ${TargetAppName_input})
-    include(${TOO_CMAKE_UTIL_DIR}/sdks/qt-android-cmake/AddQtAndroidApk.cmake)
-    add_qt_android_apk(${TargetAppName}_apk ${TargetAppName}
-        DEPENDS toolib
-        VERSION_CODE 1
-        NAME "MinimalQtTestApp"
-        QML_SOURCE_DIR ${TargetAppName_QML_DIR}
-        PACKAGE_NAME "org.enterprise.minimalqttestapp"
-        BUILDTOOLS_REVISION "26.0.1"
-    )
 else ()
     add_executable(${TargetAppName} ${TargetAppName_input})
 endif ()
@@ -152,6 +143,17 @@ too_set_target_defaults(${TargetAppName})
 
 too_include(qt_deploy.cmake)
 too_qt_deploy(${TargetAppName} ${TargetAppName_QML_DIR})
+
+if (ANDROID)
+    include(${TOO_CMAKE_UTIL_DIR}/sdks/qt-android-cmake/AddQtAndroidApk.cmake)
+    add_qt_android_apk(${TargetAppName}_apk ${TargetAppName}
+            DEPENDS toolib uiwrap
+            VERSION_CODE 1
+            NAME "MinimalQtTestApp"
+            QML_SOURCE_DIR ${TargetAppName_QML_DIR}
+            PACKAGE_NAME "org.enterprise.minimalqttestapp"
+            BUILDTOOLS_REVISION "28.0.1")
+endif ()
 
 
 ################################################################################################
