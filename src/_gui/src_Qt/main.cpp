@@ -7,6 +7,7 @@
 #include <QQmlApplicationEngine>
 #include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 #include <fstream>
+#include <string>
 
 
 namespace os
