@@ -16,7 +16,7 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-include(sdks/tfl/buildenv/cmake_util.cmake)
+include(sdks/util/buildenv/cmake_util.cmake)
 too_include(buildnr.cmake)
 project(MinimalQtTestApp VERSION 0.1.${BUILD_NR}.0)
 message(STATUS "project version: " ${PROJECT_VERSION})
