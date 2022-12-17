@@ -44,7 +44,7 @@ inline ContentID ResContentID_from_str(const ID_alnum& s)
         std::stringstream ss;
         ss << "wrong content value, don't know id '" << s << "' (yet)";
         too::trace() << ss.str();
-        TOO_ASSERT(false);
+        UL_ASSERT(false);
         throw std::out_of_range{ss.str()};
     }
     return ContentID::invalid;

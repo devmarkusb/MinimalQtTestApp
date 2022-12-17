@@ -18,7 +18,7 @@ QString getQString(res::ID id)
     case res::ID::invalid: // fall-through
     default:
         too::trace("ERROR") << "res. str. missing handling for id " << too::as_number(id) << " here";
-        TOO_ASSERT(false);
+        UL_ASSERT(false);
         return {};
     }
 }

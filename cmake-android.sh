@@ -25,11 +25,11 @@ cd $build_dir
 cmake \
 -G "Unix Makefiles" \
 -DCMAKE_BUILD_TYPE=$build_config \
--DTOO_ANDROID_TOOLCHAIN=qt \
+-DUL_ANDROID_TOOLCHAIN=qt \
 -DCMAKE_TOOLCHAIN_FILE=../sdks/tfl/buildenv/cmake_util/toolchain/android.cmake \
 -DANDROID_STL="gnustl_shared" \
 -DANDROID_ABI="armeabi-v7a" \
--DTOO_QT5_VERSION=5.9.1 -DTOO_QT_COMPILER_SUBDIR=android_armv7 \
+-DUL_QT5_VERSION=5.9.1 -DUL_QT_COMPILER_SUBDIR=android_armv7 \
 ..
 
 cd ..
@@ -48,11 +48,11 @@ cd $build_dir
 cmake \
 -G "Unix Makefiles" \
 -DCMAKE_BUILD_TYPE=$build_config \
--DTOO_ANDROID_TOOLCHAIN=qt \
+-DUL_ANDROID_TOOLCHAIN=qt \
 -DCMAKE_TOOLCHAIN_FILE=../sdks/tfl/buildenv/cmake_util/toolchain/android.cmake \
 -DANDROID_STL="gnustl_shared" \
 -DANDROID_ABI="x86" \
--DTOO_QT5_VERSION=5.9.1 -DTOO_QT_COMPILER_SUBDIR=android_x86 \
+-DUL_QT5_VERSION=5.9.1 -DUL_QT_COMPILER_SUBDIR=android_x86 \
 ..
 
 cd ..

@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
         ss << "exception: " << e.what();
         too::trace() << ss.str();
         std::cout << ss.str() << "\n";
-        TOO_ASSERT(false);
+        UL_ASSERT(false);
     }
     catch (...)
     {
@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
         ss << "unknown error";
         too::trace() << ss.str();
         std::cout << ss.str() << "\n";
-        TOO_ASSERT(false);
+        UL_ASSERT(false);
     }
     return too::prog_exit_failure;
 }

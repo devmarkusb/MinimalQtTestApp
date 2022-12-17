@@ -33,7 +33,7 @@ std::string getContentString(const res::ID_alnum& s)
 //! count of occurrences of "%s" within \param in.
 std::string fillResStrPlaceholders(const std::string& in, const std::vector<std::string>& replacements)
 {
-    TOO_EXPECT(!in.empty());
+    UL_EXPECT(!in.empty());
     std::string ret{in};
     too::str::replaceAll(ret, "%s", replacements);
     return ret;
