@@ -1,8 +1,8 @@
-.idea
-cmake-build-*
-_build*
 *.user
+.idea
+_build*
 bin
 bin_*
+cmake-build-*
 lib
 lib_*
