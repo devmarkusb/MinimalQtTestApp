@@ -1,39 +1,46 @@
 #include "resource_string.h"
-#include "toolib/enum_cast.h"
-#include "toolib/error.h"
-#include "toolib/trace.h"
-#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
+#include "ul/ul.h"
+
+#include "ul/warnings.h"
+UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QString>
 #include <QTranslator>
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+UL_PRAGMA_WARNINGS_POP
 
 
 namespace res_Qt
+{
+namespace
 {
 QString getQString(res::ID id)
 {
     switch (id)
     {
-    case res::ID::invalid: // fall-through
-    default:
-        too::trace("ERROR") << "res. str. missing handling for id " << too::as_number(id) << " here";
-        UL_ASSERT(false);
-        return {};
+        case res::ID::invalid: // fall-through
+        default:
+            ul::trace("ERROR") << "res. str. missing handling for id " << ul::as_number(id) << " here";
+            UL_ASSERT(false);
+            return {};
     }
 }
+
+QString getContentQString(const res::ID_alnum&)
+{
+    throw ul::not_implemented{"getContentQtString"};
+}
+} // namespace
 
 std::string getString(res::ID id)
 {
     return uiw::implQt::qs2s(getQString(id));
 }
 
-QString getContentQString(const res::ID_alnum&) { throw too::not_implemented{"getContentQtString"}; }
-
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNING_4702_BEGIN"
+UL_PRAGMA_WARNINGS_PUSH
+UL_WARNING_DISABLE_MSVC(4702)
 std::string getContentString(const res::ID_alnum& id)
 {
     return uiw::implQt::qs2s(getContentQString(id));
 }
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNING_END"
-} // res_Qt
+UL_PRAGMA_WARNINGS_POP
+} // namespace res_Qt

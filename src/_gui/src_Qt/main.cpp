@@ -1,34 +1,45 @@
 #include "toolib/date_time/date_time.h"
-#include "toolib/ptr2ref.h"
-#include "toolib/trace.h"
 #include "uiwrap/filesys/filesys.h"
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "ul/ul.h"
+
+#include "ul/warnings.h"
+UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+UL_PRAGMA_WARNINGS_POP
+
 #include <fstream>
 #include <string>
 
 
 namespace os
 {
-uiw::IFileSys& filesys() { return too::Ptr2Ref(uiw::IFileSys::getInstance()); }
-} // os
+namespace
+{
+uiw::IFileSys& filesys()
+{
+    return ul::ptr2Ref(uiw::IFileSys::getInstance());
+}
+} // namespace
+} // namespace os
 
 namespace test
+{
+namespace
 {
 // for testing, whether winrt app package will contain the needed dll dependency (turns out it does)
 void pullInRuntimeDependency()
 {
     std::pair<too::date_time::Years, too::date_time::Months> ym{1, 14};
     too::date_time::normalize::do_it(ym);
-    too::trace("INFO") << ym.first << ", " << ym.second;
+    ul::trace("INFO") << ym.first << ", " << ym.second;
 }
-} // test
+} // namespace
+} // namespace test
 
 int main(int argc, char* argv[])
 {
-    too::tracer::init();
+    ul::tracer::init();
 
     // block for testing file writing and interface access (had some strange problems on Android)
     std::ofstream f{"testfile.txt"};
@@ -46,5 +57,5 @@ int main(int argc, char* argv[])
 
     test::pullInRuntimeDependency();
 
-    return app.exec();
+    return QGuiApplication::exec();
 }

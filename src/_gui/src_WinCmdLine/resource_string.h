@@ -9,6 +9,6 @@ namespace res_CmdLine
 {
 std::string getString(res::ID id);
 std::string getContentString(const res::ID_alnum& s);
-} // res_CmdLine
+} // namespace res_CmdLine
 
 #endif

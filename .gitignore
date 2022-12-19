@@ -1,4 +1,5 @@
 *.user
+.clang-format
 .idea
 _build*
 bin

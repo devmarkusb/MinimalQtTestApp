@@ -9,6 +9,6 @@ namespace res_Qt
 {
 std::string getString(res::ID id);
 std::string getContentString(const res::ID_alnum& s);
-} // res_Qt
+} // namespace res_Qt
 
 #endif

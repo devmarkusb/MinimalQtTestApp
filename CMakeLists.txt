@@ -24,6 +24,10 @@ set(Target ${PROJECT_NAME})
 
 ul_include(defaults.cmake)
 
+ul_include(fetch-clangformat-repo.cmake)
+ul_include(clang-format.cmake)
+ul_include(githooks.cmake)
+
 set(UL_USE_BOOST_ver1 "1" CACHE STRING "Use boost version ver1.ver2.ver3")
 set(UL_USE_BOOST_ver2 "64" CACHE STRING "Cf. UL_USE_BOOST_ver1")
 set(UL_USE_BOOST_ver3 "0" CACHE STRING "Cf. UL_USE_BOOST_ver1")

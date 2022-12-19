@@ -1,5 +1,5 @@
-#include "_gui/interface/resource_string.h"
 #include "MinimalQtTestApp_build_config.h"
+#include "_gui/interface/resource_string.h"
 #include "toolib/assert.h"
 #include "toolib/error.h"
 #include "toolib/trace.h"
@@ -9,16 +9,19 @@
 
 namespace
 {
-int main_detail(int, char* []) { return too::prog_exit_success; }
+int main_detail(int, char*[])
+{
+    return too::prog_exit_success;
+}
 
 void init_tracer()
 {
 #if IS_DEPLOYMENT_BUILD
-#define ENABLE_TRACER too::tracer::Disabled
+#define ENABLE_TRACER ul::tracer::Disabled
 #else
-#define ENABLE_TRACER too::tracer::Enabled
+#define ENABLE_TRACER ul::tracer::Enabled
 #endif
-    too::tracer::init<ENABLE_TRACER>();
+    ul::tracer::init<ENABLE_TRACER>();
 #undef ENABLE_TRACER
 }
 } // namespace
@@ -34,7 +37,7 @@ int main(int argc, char* argv[])
     {
         std::ostringstream ss;
         ss << "exception: " << e.what();
-        too::trace() << ss.str();
+        ul::trace() << ss.str();
         std::cout << ss.str() << "\n";
         UL_ASSERT(false);
     }
@@ -42,7 +45,7 @@ int main(int argc, char* argv[])
     {
         std::ostringstream ss;
         ss << "unknown error";
-        too::trace() << ss.str();
+        ul::trace() << ss.str();
         std::cout << ss.str() << "\n";
         UL_ASSERT(false);
     }

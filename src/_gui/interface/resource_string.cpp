@@ -5,8 +5,7 @@
 #else
 #include "_gui/src_WinCmdLine/resource_string.h"
 #endif
-#include "toolib/assert.h"
-#include "toolib/string/string_misc.h"
+#include "ul/ul.h"
 
 
 namespace res
@@ -35,7 +34,7 @@ std::string fillResStrPlaceholders(const std::string& in, const std::vector<std:
 {
     UL_EXPECT(!in.empty());
     std::string ret{in};
-    too::str::replaceAll(ret, "%s", replacements);
+    ul::str::replaceAll(ret, "%s", replacements);
     return ret;
 }
-}
+} // namespace res
