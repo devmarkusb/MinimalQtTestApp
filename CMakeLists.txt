@@ -36,8 +36,8 @@ add_subdirectory(sdks)
 add_subdirectory(gui/Qt/qt_qml_extensions) # for test app
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    ul_include(qt.cmake)
-    find_package(Qt5Quick) # Widgets contains a.o.t. Core and Gui
+    ul_include(qt5.cmake)
+    find_package(Qt5 COMPONENTS Quick) # Widgets contains a.o.t. Core and Gui
 endif ()
 
 file(GLOB_RECURSE TargetAsLibForTest_SRC_INCS "src/*.h*")

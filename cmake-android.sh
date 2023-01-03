@@ -13,62 +13,53 @@ echo "Hint: you might want to delete cmake-build-debug/release dir(s) for clean 
 build_config=$1
 subdir_lowercase=${1,,}
 
+# Uncomment arm/x86 blocks according to your needs.
+# Typically arm is more popular for deployments. And x86 is the only convenient (performance-wise) build
+# to be tested within an emulator on a desktop computer.
+# Look for the call to add_qt_android_apk in CMakeLists.txt for further important instructions concerning
+# deployment builds.
 
-### arm ###
-
-build_dir=cmake-build-$subdir_lowercase-android-arm
-
-mkdir -p $build_dir
-
-cd $build_dir
-
-cmake \
--G "Unix Makefiles" \
--DCMAKE_BUILD_TYPE=$build_config \
--DUL_ANDROID_TOOLCHAIN=qt \
--DCMAKE_TOOLCHAIN_FILE=../sdks/tfl/buildenv/cmake_util/toolchain/android.cmake \
--DANDROID_STL="gnustl_shared" \
--DANDROID_ABI="armeabi-v7a" \
--DUL_QT5_VERSION=5.9.1 -DUL_QT_COMPILER_SUBDIR=android_armv7 \
-..
-
-cd ..
-cmake --build $build_dir
-
+# set
+#-DUL_DEPLOYMENT_BUILD=ON \
+# below for deployment build
 
 ### x86 ###
-# Note, yout might need to rename (copy) some subdirs in your NDK.
+# Note, you might need to rename (copy) some subdirs in your NDK.
 
-build_dir=cmake-build-$subdir_lowercase-android-x86
+build_dir=_build-$subdir_lowercase-android-x86
 
 mkdir -p $build_dir
 
 cd $build_dir
 
+
+#--log-level=DEBUG --debug-find \
+#$ANDROID_NDK/build/cmake/android.toolchain.cmake \
+#../sdks/util/buildenv/cmake_util/toolchain/android.cmake \
+
+# ANDROID_TOOLCHAIN
+# ANDROID_ABI
+# ANDROID_PLATFORM
+# ANDROID_STL
+# ANDROID_PIE
+# ANDROID_CPP_FEATURES
+# ANDROID_ALLOW_UNDEFINED_SYMBOLS
+# ANDROID_ARM_MODE
+# ANDROID_ARM_NEON
+# ANDROID_DISABLE_FORMAT_STRING_CHECKS
+# ANDROID_CCACHE
+
 cmake \
 -G "Unix Makefiles" \
 -DCMAKE_BUILD_TYPE=$build_config \
--DUL_ANDROID_TOOLCHAIN=qt \
--DCMAKE_TOOLCHAIN_FILE=../sdks/tfl/buildenv/cmake_util/toolchain/android.cmake \
--DANDROID_STL="gnustl_shared" \
+-DUL_DEPLOYMENT_BUILD=OFF \
+-DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
+-DANDROID_STL="c++_shared" \
 -DANDROID_ABI="x86" \
--DUL_QT5_VERSION=5.9.1 -DUL_QT_COMPILER_SUBDIR=android_x86 \
-..
+-DANDROID_PLATFORM=19 \
+-DUL_QT5_VERSION=5.9.9 \
+-DUL_QT_COMPILER_SUBDIR=android_x86 \
+.. -Wno-deprecated
 
 cd ..
 cmake --build $build_dir
-
-
-
-#-DCMAKE_SYSTEM_NAME=Android \
-#-DCMAKE_C_COMPILER=$dev_sdk_path/AndroidNDK/android-toolchain/bin/arm-linux-androideabi-gcc \
-#-DCMAKE_CXX_COMPILER=$dev_sdk_path/AndroidNDK/android-toolchain/bin/arm-linux-androideabi-g++ \
-#-DANDROID_NDK=$dev_sdk_path/AndroidNDK/android-ndk-r15c \
-#-DCMAKE_MAKE_PROGRAM=$dev_sdk_path/AndroidNDK/android-toolchain/bin/make \
-#-DANDROID_TOOLCHAIN_NAME="x86-4.9" \
-#-DANDROID_TOOLCHAIN_NAME="arm-linux-androideabi-4.9" \
-#-DANDROID_NATIVE_API_LEVEL=android-16 \
-#-DANDROID_PLATFORM=android-16
-#-DANDROID_ABI="armeabi-v7a" \
-
-
