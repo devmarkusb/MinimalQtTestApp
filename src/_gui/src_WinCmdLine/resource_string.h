@@ -4,7 +4,6 @@
 #include "_gui/interface/resource_ids.h"
 #include <string>
 
-
 namespace res_CmdLine
 {
 std::string getString(res::ID id);

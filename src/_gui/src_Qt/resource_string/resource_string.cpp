@@ -8,7 +8,6 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QTranslator>
 UL_PRAGMA_WARNINGS_POP
 
-
 namespace res_Qt
 {
 namespace
@@ -38,9 +37,11 @@ std::string getString(res::ID id)
 
 UL_PRAGMA_WARNINGS_PUSH
 UL_WARNING_DISABLE_MSVC(4702)
+
 std::string getContentString(const res::ID_alnum& id)
 {
     return uiw::implQt::qs2s(getContentQString(id));
 }
+
 UL_PRAGMA_WARNINGS_POP
 } // namespace res_Qt

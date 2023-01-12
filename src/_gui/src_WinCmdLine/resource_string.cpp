@@ -3,7 +3,6 @@
 #include "toolib/error.h"
 #include "toolib/trace.h"
 
-
 namespace res_CmdLine
 {
 std::string getString(res::ID id)

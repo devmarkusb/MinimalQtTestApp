@@ -6,7 +6,6 @@
 #include <conio.h>
 #include <iostream>
 
-
 namespace
 {
 int main_detail(int, char*[])

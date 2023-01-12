@@ -6,7 +6,6 @@
 #include <sstream>
 #include <stdexcept>
 
-
 namespace res
 {
 enum class ID

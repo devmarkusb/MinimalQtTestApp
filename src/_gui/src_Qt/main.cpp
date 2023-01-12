@@ -11,7 +11,6 @@ UL_PRAGMA_WARNINGS_POP
 #include <fstream>
 #include <string>
 
-
 namespace os
 {
 namespace
