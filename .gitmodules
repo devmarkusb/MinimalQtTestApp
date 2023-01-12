@@ -9,4 +9,4 @@
 	url = /home/markus/projects/git/libs/toolib
 [submodule "sdks/util"]
 	path = sdks/util
-	url = /home/markus/projects/git/libs/util.git
+	url = https://github.com/devmarkusb/util
