@@ -30,7 +30,7 @@ build_dir=_build-$subdir_lowercase-android-x86
 
 mkdir -p $build_dir
 
-cd $build_dir
+cd $build_dir || exit
 
 
 #--log-level=DEBUG --debug-find \
