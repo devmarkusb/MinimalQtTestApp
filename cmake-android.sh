@@ -50,7 +50,7 @@ cd $build_dir || exit
 # ANDROID_CCACHE
 
 cmake \
--G "Unix Makefiles" \
+-G "Ninja" \
 -DCMAKE_BUILD_TYPE=$build_config \
 -DUL_DEPLOYMENT_BUILD=OFF \
 -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
