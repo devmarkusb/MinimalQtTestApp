@@ -1,9 +1,6 @@
 [submodule "sdks/uiwrap"]
 	path = sdks/uiwrap
 	url = /home/markus/projects/git/libs/uiwrap/
-[submodule "sdks/toolib"]
-	path = sdks/toolib
-	url = /home/markus/projects/git/libs/toolib
 [submodule "sdks/util"]
 	path = sdks/util
 	url = https://github.com/devmarkusb/util

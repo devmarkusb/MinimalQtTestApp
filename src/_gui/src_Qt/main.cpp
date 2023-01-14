@@ -1,4 +1,3 @@
-#include "toolib/date_time/date_time.h"
 #include "uiwrap/filesys/filesys.h"
 #include "ul/ul.h"
 
@@ -22,20 +21,6 @@ uiw::IFileSys& filesys()
 } // namespace
 } // namespace os
 
-namespace test
-{
-namespace
-{
-// for testing, whether winrt app package will contain the needed dll dependency (turns out it does)
-void pullInRuntimeDependency()
-{
-    std::pair<too::date_time::Years, too::date_time::Months> ym{1, 14};
-    too::date_time::normalize::do_it(ym);
-    ul::trace("INFO") << ym.first << ", " << ym.second;
-}
-} // namespace
-} // namespace test
-
 int main(int argc, char* argv[])
 {
     ul::tracer::init();
@@ -53,8 +38,6 @@ int main(int argc, char* argv[])
     QQmlApplicationEngine engine;
 
     engine.load(QUrl("qrc:/MinimalQtTestApp/AppWindow.qml"));
-
-    test::pullInRuntimeDependency();
 
     return QGuiApplication::exec();
 }

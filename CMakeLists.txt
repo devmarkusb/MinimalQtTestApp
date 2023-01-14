@@ -73,14 +73,13 @@ target_include_directories(${TargetAsLibForTest} PUBLIC ${CMAKE_BINARY_DIR})
 
 target_include_directories(${TargetAsLibForTest} PUBLIC src)
 target_include_directories(${TargetAsLibForTest} PUBLIC ${tfl_INCLUDE_DIRS})
-target_include_directories(${TargetAsLibForTest} PUBLIC ${toolib_INCLUDE_DIRS})
 target_include_directories(${TargetAsLibForTest} PUBLIC ${uiwrap_INCLUDE_DIRS})
 target_include_directories(${TargetAsLibForTest} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_include_directories(${TargetAsLibForTest} SYSTEM PUBLIC ${Qt5Quick_INCLUDE_DIRS})
 endif ()
 
-target_link_libraries(${TargetAsLibForTest} PUBLIC toolib uiwrap)
+target_link_libraries(${TargetAsLibForTest} PUBLIC uiwrap)
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_link_libraries(${TargetAsLibForTest} PUBLIC Qt5::Quick)
 endif ()
@@ -154,7 +153,7 @@ ul_qt_deploy(${Target} ${Target_QML_DIR})
 if (ANDROID)
     include(${UL_CMAKE_UTIL_DIR}/qt-android-cmake.cmake)
     add_qt_android_apk(${Target}_apk ${Target}
-            DEPENDS toolib uiwrap
+            DEPENDS uiwrap
             VERSION_CODE 1
             NAME "MinimalQtTestApp"
             QML_SOURCE_DIR ${Target_QML_DIR}

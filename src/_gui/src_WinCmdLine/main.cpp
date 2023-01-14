@@ -1,16 +1,13 @@
 #include "MinimalQtTestApp_build_config.h"
 #include "_gui/interface/resource_string.h"
-#include "toolib/assert.h"
-#include "toolib/error.h"
-#include "toolib/trace.h"
-#include <conio.h>
+#include "ul/ul.h"
 #include <iostream>
 
 namespace
 {
 int main_detail(int, char*[])
 {
-    return too::prog_exit_success;
+    return ul::prog_exit_success;
 }
 
 void init_tracer()
@@ -48,5 +45,5 @@ int main(int argc, char* argv[])
         std::cout << ss.str() << "\n";
         UL_ASSERT(false);
     }
-    return too::prog_exit_failure;
+    return ul::prog_exit_failure;
 }
