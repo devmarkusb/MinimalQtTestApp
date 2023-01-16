@@ -155,10 +155,14 @@ if (ANDROID)
     add_qt_android_apk(${Target}_apk ${Target}
             DEPENDS uiwrap
             VERSION_CODE 1
+            # uncomment the following two lines for a signed release build apk
+            # *and* increment VERSION_CODE above
+            KEYSTORE ${CMAKE_SOURCE_DIR}/doc/stores/googleplaystore/upload_keystore.jks upload
+            KEYSTORE_PASSWORD "rMi5Y53Qxx5Z5jWH"
             NAME "MinimalQtTestApp"
             QML_SOURCE_DIR ${Target_QML_DIR}
             PACKAGE_NAME "org.enterprise.minimalqttestapp"
-            BUILDTOOLS_REVISION "28.0.1")
+            BUILDTOOLS_REVISION "33.0.1")
 endif ()
 
 

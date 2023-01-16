@@ -50,15 +50,15 @@ cd $build_dir || exit
 # ANDROID_CCACHE
 
 cmake \
--G "Ninja" \
+-G "Unix Makefiles" \
 -DCMAKE_BUILD_TYPE=$build_config \
 -DUL_DEPLOYMENT_BUILD=OFF \
 -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
 -DANDROID_STL="c++_shared" \
--DANDROID_ABI="x86" \
--DANDROID_PLATFORM=19 \
+-DANDROID_ABI="armeabi-v7a" \
+-DANDROID_PLATFORM=21 \
 -DUL_QT5_VERSION=5.9.9 \
--DUL_QT_COMPILER_SUBDIR=android_x86 \
+-DUL_QT_COMPILER_SUBDIR=android_armv7 \
 .. -Wno-deprecated
 
 cd ..
