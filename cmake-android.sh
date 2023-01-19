@@ -26,7 +26,7 @@ subdir_lowercase=${1,,}
 ### x86 ###
 # Note, you might need to rename (copy) some subdirs in your NDK.
 
-build_dir=_build-$subdir_lowercase-android-x86
+build_dir=_build-$subdir_lowercase-android
 
 mkdir -p $build_dir
 
@@ -55,10 +55,10 @@ cmake \
 -DUL_DEPLOYMENT_BUILD=OFF \
 -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
 -DANDROID_STL="c++_shared" \
--DANDROID_ABI="armeabi-v7a" \
+-DANDROID_ABI="arm64-v8a" \
 -DANDROID_PLATFORM=21 \
--DUL_QT5_VERSION=5.9.9 \
--DUL_QT_COMPILER_SUBDIR=android_armv7 \
+-DUL_QT5_VERSION=5.15.2 \
+-DUL_QT_COMPILER_SUBDIR=android \
 .. -Wno-deprecated
 
 cd ..

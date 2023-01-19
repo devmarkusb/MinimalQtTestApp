@@ -14,3 +14,11 @@ Set environment variables:
 Set CMake variables:
 * `UL_QT5_VERSION` to e.g. `5.9.1`
 * `UL_QT_COMPILER_SUBDIR` to e.g. `gcc_64`
+
+
+## Contributing
+
+### todo
+
+1. Get rid of that nonsense runtime polymorphism, compile-time
+suffices.
