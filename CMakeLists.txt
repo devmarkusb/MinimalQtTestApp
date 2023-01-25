@@ -28,7 +28,7 @@ ul_include(clang-format.cmake)
 ul_include(githooks.cmake)
 
 ul_include(boost.cmake)
-ul_find_boost(${UL_USE_BOOST_ver1} ${UL_USE_BOOST_ver2} ${UL_USE_BOOST_ver3} "${BOOST_LIBS_TO_USE}")
+ul_find_boost(${UL_USE_BOOST_ver1} ${UL_USE_BOOST_ver2} ${UL_USE_BOOST_ver3} "")
 
 add_subdirectory(sdks)
 add_subdirectory(gui/Qt/qt_qml_extensions) # for test app
