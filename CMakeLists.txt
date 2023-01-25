@@ -27,9 +27,6 @@ ul_include(defaults.cmake)
 ul_include(clang-format.cmake)
 ul_include(githooks.cmake)
 
-set(UL_USE_BOOST_ver1 "1" CACHE STRING "Use boost version ver1.ver2.ver3")
-set(UL_USE_BOOST_ver2 "67" CACHE STRING "Cf. UL_USE_BOOST_ver1")
-set(UL_USE_BOOST_ver3 "0" CACHE STRING "Cf. UL_USE_BOOST_ver1")
 ul_include(boost.cmake)
 ul_find_boost(${UL_USE_BOOST_ver1} ${UL_USE_BOOST_ver2} ${UL_USE_BOOST_ver3} "${BOOST_LIBS_TO_USE}")
 
