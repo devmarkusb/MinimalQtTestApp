@@ -53,7 +53,7 @@ jobs:
 
     - name: Patch Qt
       run: >
-        cp ${{github.workspace}}/MinimalQtTestApp/.github/workflows/Qt5AndroidSupport.cmake
+        cp ${{github.workspace}}/.github/workflows/Qt5AndroidSupport.cmake
         ${{github.workspace}}/externlibs/qt/$qt_version/android/cmake/lib/Qt5Core/
 
     - name: Configure CMake
