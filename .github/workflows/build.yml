@@ -22,6 +22,12 @@ jobs:
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: ${{matrix.config.os}}
 
+    # The token below is a workaround I searched for a long time,
+    # https://github.com/actions/checkout/issues/116#issuecomment-644419389
+    # As long as you can't just succeed cloning submodules that a private repos.
+    # 1. Make a private access token (PAT): https://github.com/settings/tokens
+    # 2. Add a secret PRIVATE_SUBMODULE_PAT with that token:
+    # https://github.com/devmarkusb/MinimalQtTestApp/settings/secrets/actions
     steps:
     - uses: actions/checkout@v3
       with:
