@@ -27,9 +27,11 @@ jobs:
 #      with:
 #        submodules: recursive
 
-    - uses: jwsi/submodule-checkout@v1
-      with:
-        ssh-key: '${{ secrets.DEPLOY_KEY }}'
+    - name: Checkout submodules
+      run: |
+        git config --global url."https://github.com/".insteadOf "git@github.com:"
+        git submodule sync --recursive
+        git -c "http.extraheader=Authorization: basic ${{ secrets.GITHUB_ACCESS_TOKEN }}" -c protocol.version=2 submodule update --init --force --recursive --depth=1
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
