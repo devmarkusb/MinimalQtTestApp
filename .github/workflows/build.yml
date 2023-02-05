@@ -23,9 +23,10 @@ jobs:
     runs-on: ${{matrix.config.os}}
 
     steps:
-#    - uses: actions/checkout@v3
-#      with:
-#        submodules: recursive
+    - uses: actions/checkout@v3
+      with:
+        token: ${{secrets.PRIVATE_SUBMODULE_PAT}}
+        submodules: recursive
 
     - uses: actions/checkout@v2
     - name: Checkout
