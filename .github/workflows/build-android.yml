@@ -54,7 +54,7 @@ jobs:
     - name: Patch Qt
       run: >
         cp ${{github.workspace}}/.github/workflows/Qt5AndroidSupport.cmake
-        ${{github.workspace}}/externlibs/qt/$qt_version/android/cmake/lib/Qt5Core/
+        ${{github.workspace}}/externlibs/qt/$qt_version/android/cmake/lib/Qt5Core/Qt5AndroidSupport.cmake
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
