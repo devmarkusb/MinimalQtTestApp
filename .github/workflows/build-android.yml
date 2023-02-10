@@ -57,6 +57,8 @@ jobs:
         ${{github.workspace}}/externlibs/qt/Qt/$qt_version/android/lib/cmake/Qt5Core/Qt5AndroidSupport.cmake
 
     - name: Configure CMake
+      env:
+        dev_qt_base: $Qt5_DIR
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: >
