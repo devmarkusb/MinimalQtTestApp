@@ -163,7 +163,7 @@ if (ANDROID)
             NAME "MinimalQtTestApp"
             QML_SOURCE_DIR ${Target_QML_DIR}
             PACKAGE_NAME "org.enterprise.minimalqttestapp"
-            BUILDTOOLS_REVISION "33.0.1")
+            BUILDTOOLS_REVISION "33.0.2")
 endif ()
 
 
