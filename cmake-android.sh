@@ -54,6 +54,8 @@ cmake \
 -DCMAKE_BUILD_TYPE=$build_config \
 -DUL_DEPLOYMENT_BUILD=OFF \
 -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
+-DUL_JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 \
+-DUL_ANDROID_NDK=$dev_sdk_path/Android/Sdk/ndk/21.3.6528147 \
 -DANDROID_STL="c++_shared" \
 -DANDROID_ABI="arm64-v8a" \
 -DANDROID_PLATFORM=21 \
