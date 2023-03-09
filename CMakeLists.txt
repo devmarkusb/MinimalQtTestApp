@@ -162,7 +162,9 @@ if (ANDROID)
             KEYSTORE_PASSWORD "rMi5Y53Qxx5Z5jWH"
             NAME "MinimalQtTestApp"
             QML_SOURCE_DIR ${Target_QML_DIR}
+            PACKAGE_SOURCES ${UL_CMAKE_UTIL_DIR}/android
             PACKAGE_NAME "org.enterprise.minimalqttestapp"
+            ANDROID_PLATFORM_LEVEL 28
             BUILDTOOLS_REVISION "33.0.2")
 endif ()
 

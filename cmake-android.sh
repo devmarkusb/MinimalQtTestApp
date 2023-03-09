@@ -49,16 +49,17 @@ cd $build_dir || exit
 # ANDROID_DISABLE_FORMAT_STRING_CHECKS
 # ANDROID_CCACHE
 
+ndk_path=$dev_sdk_path/Android/Sdk/ndk/21.3.6528147
+
 cmake \
 -G "Unix Makefiles" \
 -DCMAKE_BUILD_TYPE=$build_config \
 -DUL_DEPLOYMENT_BUILD=OFF \
--DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake \
+-DCMAKE_TOOLCHAIN_FILE=$ndk_path/build/cmake/android.toolchain.cmake \
 -DUL_JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 \
--DUL_ANDROID_NDK=$dev_sdk_path/Android/Sdk/ndk/21.3.6528147 \
+-DUL_ANDROID_NDK=$ndk_path \
 -DANDROID_STL="c++_shared" \
 -DANDROID_ABI="arm64-v8a" \
--DANDROID_PLATFORM=21 \
 -DUL_QT5_VERSION=5.15.2 \
 -DUL_QT_COMPILER_SUBDIR=android \
 .. -Wno-deprecated
