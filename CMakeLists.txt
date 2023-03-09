@@ -151,6 +151,8 @@ set_property(SOURCE qrc_qml.cpp PROPERTY SKIP_AUTOMOC ON)
 ul_include(qt_deploy.cmake)
 ul_qt_deploy(${Target} ${Target_QML_DIR})
 
+set(ANDROID_PLATFORM_LEVEL 28)
+
 if (ANDROID)
     include(${UL_CMAKE_UTIL_DIR}/qt-android-cmake.cmake)
     add_qt_android_apk(${Target}_apk ${Target}
@@ -161,11 +163,9 @@ if (ANDROID)
             KEYSTORE ${CMAKE_SOURCE_DIR}/doc/stores/googleplaystore/upload_keystore.jks upload
             KEYSTORE_PASSWORD "rMi5Y53Qxx5Z5jWH"
             NAME "MinimalQtTestApp"
-            QML_SOURCE_DIR ${Target_QML_DIR}
             PACKAGE_SOURCES ${UL_CMAKE_UTIL_DIR}/android
             PACKAGE_NAME "org.enterprise.minimalqttestapp"
-            ANDROID_PLATFORM_LEVEL 28
-            BUILDTOOLS_REVISION "33.0.2")
+            BUILDTOOLS_REVISION "28.0.3")
 endif ()
 
 
