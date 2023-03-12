@@ -48,35 +48,50 @@
 **
 ****************************************************************************/
 
-#include <QGuiApplication>
-#include <QIcon>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include <QQuickStyle>
-#include <QSettings>
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 
-int main(int argc, char* argv[])
-{
-    QGuiApplication::setApplicationName("Gallery");
-    QGuiApplication::setOrganizationName("QtProject");
-    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+ScrollablePage {
+    id: page
 
-    QGuiApplication app(argc, argv);
+    Column {
+        spacing: 40
+        width: parent.width
 
-    QIcon::setThemeName("gallery");
+        Label {
+            width: parent.width
+            wrapMode: Label.Wrap
+            horizontalAlignment: Qt.AlignHCenter
+            text: "ComboBox is a combined button and popup list. It presents "
+                + "a list of options to the user that occupies minimal screen space."
+        }
 
-    QSettings settings;
-    QString style = QQuickStyle::name();
-    if (!style.isEmpty())
-        settings.setValue("style", style);
-    else
-        QQuickStyle::setStyle(settings.value("style").toString());
+        ComboBox {
+            model: ["First", "Second", "Third"]
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
 
-    QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("availableStyles", QQuickStyle::availableStyles());
-    engine.load(QUrl("qrc:/AppWindow.qml"));
-    if (engine.rootObjects().isEmpty())
-        return -1;
+        Label {
+            width: parent.width
+            wrapMode: Label.Wrap
+            horizontalAlignment: Qt.AlignHCenter
+            text: "ComboBox can be made \l editable. An editable combo box auto-"
+                + "completes its text based on what is available in the model."
+        }
 
-    return app.exec();
+        ComboBox {
+            editable: true
+            model: ListModel {
+                id: model
+                ListElement { text: "Banana" }
+                ListElement { text: "Apple" }
+                ListElement { text: "Coconut" }
+            }
+            onAccepted: {
+                if (find(editText) === -1)
+                    model.append({text: editText})
+            }
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+    }
 }

@@ -48,35 +48,24 @@
 **
 ****************************************************************************/
 
-#include <QGuiApplication>
-#include <QIcon>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include <QQuickStyle>
-#include <QSettings>
+import QtQuick 2.6
+import QtQuick.Controls 2.0
 
-int main(int argc, char* argv[])
-{
-    QGuiApplication::setApplicationName("Gallery");
-    QGuiApplication::setOrganizationName("QtProject");
-    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+Page {
+    id: page
 
-    QGuiApplication app(argc, argv);
+    default property alias content: pane.contentItem
 
-    QIcon::setThemeName("gallery");
+    Flickable {
+        anchors.fill: parent
+        contentHeight: pane.implicitHeight
+        flickableDirection: Flickable.AutoFlickIfNeeded
 
-    QSettings settings;
-    QString style = QQuickStyle::name();
-    if (!style.isEmpty())
-        settings.setValue("style", style);
-    else
-        QQuickStyle::setStyle(settings.value("style").toString());
+        Pane {
+            id: pane
+            width: parent.width
+        }
 
-    QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("availableStyles", QQuickStyle::availableStyles());
-    engine.load(QUrl("qrc:/AppWindow.qml"));
-    if (engine.rootObjects().isEmpty())
-        return -1;
-
-    return app.exec();
+        ScrollIndicator.vertical: ScrollIndicator { }
+    }
 }

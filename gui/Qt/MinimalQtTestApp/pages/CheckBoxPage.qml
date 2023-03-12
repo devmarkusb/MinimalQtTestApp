@@ -48,35 +48,40 @@
 **
 ****************************************************************************/
 
-#include <QGuiApplication>
-#include <QIcon>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include <QQuickStyle>
-#include <QSettings>
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 
-int main(int argc, char* argv[])
-{
-    QGuiApplication::setApplicationName("Gallery");
-    QGuiApplication::setOrganizationName("QtProject");
-    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+ScrollablePage {
+    id: page
 
-    QGuiApplication app(argc, argv);
+    Column {
+        spacing: 40
+        width: parent.width
 
-    QIcon::setThemeName("gallery");
+        Label {
+            width: parent.width
+            wrapMode: Label.Wrap
+            horizontalAlignment: Qt.AlignHCenter
+            text: "CheckBox presents an option button that can be toggled on or off. "
+                + "Check boxes are typically used to select one or more options from a set of options."
+        }
 
-    QSettings settings;
-    QString style = QQuickStyle::name();
-    if (!style.isEmpty())
-        settings.setValue("style", style);
-    else
-        QQuickStyle::setStyle(settings.value("style").toString());
+        Column {
+            spacing: 20
+            anchors.horizontalCenter: parent.horizontalCenter
 
-    QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("availableStyles", QQuickStyle::availableStyles());
-    engine.load(QUrl("qrc:/AppWindow.qml"));
-    if (engine.rootObjects().isEmpty())
-        return -1;
-
-    return app.exec();
+            CheckBox {
+                text: "First"
+                checked: true
+            }
+            CheckBox {
+                text: "Second"
+            }
+            CheckBox {
+                text: "Third"
+                checked: true
+                enabled: false
+            }
+        }
+    }
 }
