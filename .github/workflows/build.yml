@@ -8,8 +8,8 @@ jobs:
       matrix:
         build_type: [Debug, RelWithDebInfo]
         config:
-          - {os: self-hosted, compiler: GNU,  CC: gcc,   CXX: g++     , qtcomp: gcc_64}
-          - {os: self-hosted, compiler: LLVM, CC: clang, CXX: clang++ , qtcomp: gcc_64}
+          - {os: ubuntu-latest, compiler: GNU,  CC: gcc,   CXX: g++     , qtcomp: gcc_64}
+          - {os: ubuntu-latest, compiler: LLVM, CC: clang, CXX: clang++ , qtcomp: gcc_64}
 
     env:
       CC: ${{matrix.config.CC}}
