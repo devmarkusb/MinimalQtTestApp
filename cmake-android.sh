@@ -26,7 +26,7 @@ subdir_lowercase=${1,,}
 ### x86 ###
 # Note, you might need to rename (copy) some subdirs in your NDK.
 
-build_dir=_build-$subdir_lowercase-android2
+build_dir=_build-$subdir_lowercase-android
 
 mkdir -p $build_dir
 
