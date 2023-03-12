@@ -8,7 +8,7 @@ jobs:
       matrix:
         build_type: [RelWithDebInfo]
         config:
-          - {os: self-hosted, qtcomp: android}
+          - {os: ubuntu-latest, qtcomp: android}
 
     env:
       qt_version: 5.15.2
