@@ -32,23 +32,6 @@ mkdir -p $build_dir
 
 cd $build_dir || exit
 
-
-#--log-level=DEBUG --debug-find \
-#$ANDROID_NDK/build/cmake/android.toolchain.cmake \
-#../sdks/util/buildenv/cmake_util/toolchain/android.cmake \
-
-# ANDROID_TOOLCHAIN
-# ANDROID_ABI
-# ANDROID_PLATFORM
-# ANDROID_STL
-# ANDROID_PIE
-# ANDROID_CPP_FEATURES
-# ANDROID_ALLOW_UNDEFINED_SYMBOLS
-# ANDROID_ARM_MODE
-# ANDROID_ARM_NEON
-# ANDROID_DISABLE_FORMAT_STRING_CHECKS
-# ANDROID_CCACHE
-
 ndk_path=$dev_sdk_path/Android/Sdk/ndk/21.3.6528147
 
 cmake \
@@ -60,6 +43,7 @@ cmake \
 -DUL_ANDROID_NDK=$ndk_path \
 -DANDROID_STL="c++_shared" \
 -DANDROID_ABI="arm64-v8a" \
+-DANDROID_PLATFORM=28 \
 -DUL_QT5_VERSION=5.15.2 \
 -DUL_QT_COMPILER_SUBDIR=android \
 .. -Wno-deprecated
