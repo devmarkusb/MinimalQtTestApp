@@ -21,7 +21,7 @@ add_subdirectory(gui/Qt/qt_qml_extensions) # for test app
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     ul_include(qt5.cmake)
-    find_package(Qt5 COMPONENTS Quick QuickControls2) # Widgets contains a.o.t. Core and Gui
+    find_package(Qt5 COMPONENTS Quick QuickControls2 Svg)
 endif ()
 
 file(GLOB_RECURSE targetAsLibForTest_SRC_INCS "src/*.h*")
@@ -63,7 +63,7 @@ endif()
 
 target_link_libraries(${targetAsLibForTest} PUBLIC uiwrap)
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    target_link_libraries(${targetAsLibForTest} PUBLIC Qt5::Quick Qt5::QuickControls2)
+    target_link_libraries(${targetAsLibForTest} PUBLIC Qt::Quick Qt::QuickControls2 Qt:Svg)
 endif ()
 
 ul_set_target_defaults(${targetAsLibForTest})
