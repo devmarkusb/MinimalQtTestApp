@@ -63,7 +63,7 @@ endif()
 
 target_link_libraries(${targetAsLibForTest} PUBLIC uiwrap)
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    target_link_libraries(${targetAsLibForTest} PUBLIC Qt::Quick Qt::QuickControls2 Qt:Svg)
+    target_link_libraries(${targetAsLibForTest} PUBLIC Qt::Quick Qt::QuickControls2 Qt::Svg)
 endif ()
 
 ul_set_target_defaults(${targetAsLibForTest})
