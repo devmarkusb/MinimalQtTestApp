@@ -10,19 +10,15 @@ UL_PRAGMA_WARNINGS_POP
 #include <fstream>
 #include <string>
 
-namespace os
-{
-namespace
-{
-uiw::IFileSys& filesys()
-{
-    return ul::ptr2Ref(uiw::IFileSys::getInstance());
+namespace os {
+namespace {
+uiw::IFileSys& filesys() {
+    return ul::ptr2ref(uiw::IFileSys::getInstance());
 }
 } // namespace
 } // namespace os
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     ul::tracer::init();
 
     // block for testing file writing and interface access (had some strange problems on Android)

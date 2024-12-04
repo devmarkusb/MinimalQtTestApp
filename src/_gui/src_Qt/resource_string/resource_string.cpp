@@ -8,14 +8,10 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QTranslator>
 UL_PRAGMA_WARNINGS_POP
 
-namespace res_Qt
-{
-namespace
-{
-QString getQString(res::ID id)
-{
-    switch (id)
-    {
+namespace res_Qt {
+namespace {
+QString getQString(res::ID id) {
+    switch (id) {
         case res::ID::invalid: // fall-through
         default:
             ul::trace("ERROR") << "res. str. missing handling for id " << ul::as_number(id) << " here";
@@ -24,22 +20,19 @@ QString getQString(res::ID id)
     }
 }
 
-QString getContentQString(const res::ID_alnum&)
-{
-    throw ul::not_implemented{"getContentQtString"};
+QString getContentQString(const res::ID_alnum&) {
+    throw ul::NotImplemented{"getContentQtString"};
 }
 } // namespace
 
-std::string getString(res::ID id)
-{
+std::string getString(res::ID id) {
     return uiw::implQt::qs2s(getQString(id));
 }
 
 UL_PRAGMA_WARNINGS_PUSH
 UL_WARNING_DISABLE_MSVC(4702)
 
-std::string getContentString(const res::ID_alnum& id)
-{
+std::string getContentString(const res::ID_alnum& id) {
     return uiw::implQt::qs2s(getContentQString(id));
 }
 
