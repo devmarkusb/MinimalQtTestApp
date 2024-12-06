@@ -29,7 +29,7 @@ jobs:
     # 2. Add a secret PRIVATE_SUBMODULE_PAT with that token:
     # https://github.com/devmarkusb/MinimalQtTestApp/settings/secrets/actions
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         token: ${{secrets.PRIVATE_SUBMODULE_PAT}}
         submodules: recursive

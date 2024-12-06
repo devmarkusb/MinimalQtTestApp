@@ -1,5 +1,6 @@
 # MinimalQtTestApp
 
+[![build](https://github.com/devmarkusb/MinimalQtTestApp/actions/workflows/build.yml/badge.svg)](https://github.com/devmarkusb/MinimalQtTestApp/actions/workflows/build.yml)
 [![build-android](https://github.com/devmarkusb/MinimalQtTestApp/actions/workflows/build-android.yml/badge.svg)](https://github.com/devmarkusb/MinimalQtTestApp/actions/workflows/build-android.yml)
 
 A minimal Qt app. Mainly for tests of platform
