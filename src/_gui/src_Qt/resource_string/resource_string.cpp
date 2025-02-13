@@ -1,5 +1,4 @@
 #include "resource_string.h"
-#include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 #include "ul/ul.h"
 
 #include "ul/warnings.h"
@@ -10,7 +9,7 @@ UL_PRAGMA_WARNINGS_POP
 
 namespace res_Qt {
 namespace {
-QString getQString(res::ID id) {
+[[maybe_unused]] QString getQString(res::ID id) {
     switch (id) {
         case res::ID::invalid: // fall-through
         default:
@@ -20,20 +19,20 @@ QString getQString(res::ID id) {
     }
 }
 
-QString getContentQString(const res::ID_alnum&) {
+[[maybe_unused]] QString getContentQString(const res::ID_alnum&) {
     throw ul::NotImplemented{"getContentQtString"};
 }
 } // namespace
 
-std::string getString(res::ID id) {
-    return uiw::implQt::qs2s(getQString(id));
+std::string getString(res::ID) {
+    throw ul::NotImplemented{"getString"};
 }
 
 UL_PRAGMA_WARNINGS_PUSH
 UL_WARNING_DISABLE_MSVC(4702)
 
-std::string getContentString(const res::ID_alnum& id) {
-    return uiw::implQt::qs2s(getContentQString(id));
+std::string getContentString(const res::ID_alnum&) {
+    throw ul::NotImplemented{"getContentString"};
 }
 
 UL_PRAGMA_WARNINGS_POP
