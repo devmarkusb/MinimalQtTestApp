@@ -12,10 +12,10 @@ Set environment variables:
 * `export dev_sdk_path=/path-to-sdks/` where versions of Qt reside
   (and possibly also boost).
 * `export dev_qt_base=$dev_sdk_path/qt_linux` (e.g.) where Qt versions
-  can be found in subdirs like `5.9.1`.
+  can be found in subdirs like `6.8.2`.
 
 Set CMake variables:
-* `UL_QT5_VERSION` to e.g. `5.9.1`
+* `UL_QT6_VERSION` to e.g. `6.8.2` or `UL_QT5_VERSION` to e.g. `5.9.1`
 * `UL_QT_COMPILER_SUBDIR` to e.g. `gcc_64`
 
 

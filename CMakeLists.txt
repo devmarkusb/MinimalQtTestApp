@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4.1)
+cmake_minimum_required(VERSION 3.5)
 
 include(sdks/util/buildenv/cmake_util.cmake)
 ul_include(buildnr.cmake)
@@ -11,32 +11,19 @@ ul_include(defaults.cmake)
 ul_include(clang-format.cmake)
 ul_include(githooks.cmake)
 
-if (uiwrap_USE_IMPLEMENTATION STREQUAL "own")
-    ul_include(boost.cmake)
-    ul_find_boost(${UL_USE_BOOST_ver1} ${UL_USE_BOOST_ver2} ${UL_USE_BOOST_ver3} "")
-endif()
-
 add_subdirectory(sdks)
 add_subdirectory(gui/Qt/qt_qml_extensions) # for test app
 
-if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    ul_include(qt5.cmake)
-    find_package(Qt5 COMPONENTS Quick QuickControls2 Svg)
-endif ()
+ul_include(qt6.cmake)
+find_package(Qt6 REQUIRED COMPONENTS Quick QuickControls2 Svg)
+qt_standard_project_setup()
+set(CMAKE_AUTORCC ON)
 
 file(GLOB_RECURSE targetAsLibForTest_SRC_INCS "src/*.h*")
 
-# Sources to be switched according to active GUI implementation.
-if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    set(targetAsLibForTest_IMPL_SOURCES
-        src/_gui/src_Qt/resource_string/resource_string.cpp
-    )
-elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
-else ()
-    set(targetAsLibForTest_IMPL_SOURCES
-        src/_gui/src_WinCmdLine/resource_string.cpp
-    )
-endif ()
+set(targetAsLibForTest_IMPL_SOURCES
+    src/_gui/src_Qt/resource_string/resource_string.cpp
+)
 
 set(targetAsLibForTest_SOURCES
     src/_gui/interface/resource_string.cpp
@@ -46,25 +33,15 @@ set(targetAsLibForTest_SOURCES
 
 set(targetAsLibForTest ${PROJECT_NAME}AsLibForTest)
 
-add_library(${targetAsLibForTest} STATIC
+qt_add_library(${targetAsLibForTest} STATIC
     ${targetAsLibForTest_SOURCES}
     ${targetAsLibForTest_SRC_INCS}
 )
 
 configure_file(${target}_build_config.h.in ${CMAKE_BINARY_DIR}/${target}_build_config.h)
-target_include_directories(${targetAsLibForTest} PUBLIC ${CMAKE_BINARY_DIR})
-
 target_include_directories(${targetAsLibForTest} PUBLIC src)
-target_include_directories(${targetAsLibForTest} PUBLIC ${tfl_INCLUDE_DIRS})
-target_include_directories(${targetAsLibForTest} PUBLIC ${uiwrap_INCLUDE_DIRS})
-if (uiwrap_USE_IMPLEMENTATION STREQUAL "own")
-    target_include_directories(${targetAsLibForTest} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
-endif()
 
-target_link_libraries(${targetAsLibForTest} PUBLIC uiwrap)
-if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    target_link_libraries(${targetAsLibForTest} PUBLIC Qt::Quick Qt::QuickControls2 Qt::Svg)
-endif ()
+target_link_libraries(${targetAsLibForTest} PUBLIC mb-util Qt::Quick Qt::QuickControls2 Qt::Svg)
 
 ul_set_target_defaults(${targetAsLibForTest})
 
@@ -74,24 +51,16 @@ set(${targetAsLibForTest}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src
 
 ###############################################################################################
 
-if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    # Only purpose of this so far: prevent showing an additional console window in Qt apps (happens for msvc in way
-    # impossible to overlook, but also for mingw builds when not starting from IDE).
-    if (WIN32)
-        set(WIN32_ON_OFF_SWITCH "WIN32")
-    else ()
-        set(WIN32_ON_OFF_SWITCH "")
-    endif ()
-    qt5_add_resources(target_RESOURCES gui/Qt/qml.qrc)
-    set(target_IMPL_SOURCES
-        src/_gui/src_Qt/main.cpp
-    )
+# Only purpose of this so far: prevent showing an additional console window in Qt apps (happens for msvc in way
+# impossible to overlook, but also for mingw builds when not starting from IDE).
+if (WIN32)
+    set(WIN32_ON_OFF_SWITCH "WIN32")
 else ()
-    set(target_RESOURCES "")
-    set(target_IMPL_SOURCES
-        src/_gui/src_WinCmdLine/main.cpp
-    )
+    set(WIN32_ON_OFF_SWITCH "")
 endif ()
+set(target_IMPL_SOURCES
+    src/_gui/src_Qt/main.cpp
+)
 
 ul_include(uwp_tools.cmake)
 ul_obtain_UWP_resources(
@@ -111,16 +80,16 @@ ul_obtain_UWP_resources(
 set(target_input
     ${WIN32_ON_OFF_SWITCH}
     ${target_UWP_ASSETS}
-    ${target_RESOURCES}
     ${target_IMPL_SOURCES}
+    gui/Qt/qml.qrc
 )
 
 set(target_QML_DIR ${CMAKE_SOURCE_DIR}/gui/Qt)
 
 if (ANDROID)
-    add_library(${target} SHARED ${target_input})
+    qt_add_library(${target} SHARED ${target_input})
 else ()
-    add_executable(${target} ${target_input})
+    qt_add_executable(${target} ${target_input})
 endif ()
 
 target_link_libraries(${target} PRIVATE ${targetAsLibForTest})
