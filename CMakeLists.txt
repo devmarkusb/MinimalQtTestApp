@@ -126,16 +126,9 @@ endif ()
 
 set(targetTest ${PROJECT_NAME}Test)
 
-
-if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    file(GLOB_RECURSE targetTest_IMPL_SOURCES
-        "src/_gui/src_Qt/*.test.cpp"
-        )
-else ()
-    file(GLOB_RECURSE targetTest_IMPL_SOURCES
-        "src/_gui/src_WinCmdLine/*.test.cpp"
-        )
-endif ()
+file(GLOB_RECURSE targetTest_IMPL_SOURCES
+    "src/_gui/src_Qt/*.test.cpp"
+    )
 
 set(targetTest_SOURCES
     src/_gui/interface/resource_ids.test.cpp
