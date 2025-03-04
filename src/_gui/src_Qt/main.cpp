@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    engine.load(QUrl("qrc:/MinimalQtTestApp/AppWindow.qml"));
+    engine.load(QUrl("qrc:/gui/Qt/MinimalQtTestApp/AppWindow.qml"));
 
     return QGuiApplication::exec();
 }

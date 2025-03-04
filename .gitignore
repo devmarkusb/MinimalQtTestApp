@@ -8,3 +8,4 @@ clangformat.sh
 cmake-build-*
 lib
 lib_*
+res
