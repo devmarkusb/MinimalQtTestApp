@@ -203,7 +203,9 @@ if (ANDROID)
     )
 endif ()
 
-target_compile_options(${target} PRIVATE -Wno-missing-prototypes)
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    target_compile_options(${target} PRIVATE -Wno-missing-prototypes)
+endif()
 
 if (UNIX AND NOT APPLE AND CMAKE_CROSSCOMPILING)
     find_package(Qt6 REQUIRED COMPONENTS QuickTemplates2)
