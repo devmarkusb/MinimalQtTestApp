@@ -181,7 +181,7 @@ if (ANDROID)
         COMMAND ${CMAKE_COMMAND} -E make_directory "${RUNTIME_OUTPUT_DIRECTORY_PACKAGESUBDIR}")
     execute_process(
         COMMAND ${CMAKE_COMMAND} -E copy_directory "installer/_content_for_bindir/_ico/android"
-        "${RUNTIME_OUTPUT_DIRECTORY_PACKAGESUBDIR}"
+        "${RUNTIME_OUTPUT_DIRECTORY_PACKAGESUBDIR}/res"
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     )
     file(GLOB package_sources
