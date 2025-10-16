@@ -8,13 +8,13 @@ jobs:
       matrix:
         build_type: [Debug, RelWithDebInfo]
         config:
-          - {os: ubuntu-24.04, compiler: GNU,  CC: gcc-14,   CXX: g++-14     , qtcomp: gcc_64}
-          - {os: ubuntu-24.04, compiler: LLVM, CC: clang-18, CXX: clang++-18 , qtcomp: gcc_64}
+          - {os: ubuntu-latest, compiler: GNU,  CC: gcc,   CXX: g++     , qtcomp: gcc_64}
+          - {os: ubuntu-latest, compiler: LLVM, CC: clang, CXX: clang++ , qtcomp: gcc_64}
 
     env:
       CC: ${{matrix.config.CC}}
       CXX: ${{matrix.config.CXX}}
-      qt_version: 6.8.2
+      qt_version: 6.9.3
       dev_qt_base: $Qt6_DIR
 
     # The CMake configure and build commands are platform-agnostic and should work equally well on Windows or Mac.
@@ -37,7 +37,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: '6.8.2' #todo can't get $qt_version working
+        version: '6.9.3' #todo can't get $qt_version working
         target: 'desktop'
         arch: ''
         dir: '${{github.workspace}}/externlibs/qt/'

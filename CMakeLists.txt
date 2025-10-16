@@ -87,6 +87,11 @@ set(target_QML_DIR ${CMAKE_SOURCE_DIR}/gui/Qt)
 
 qt_add_executable(${target} ${target_input})
 
+if (UL_ANDROID)
+    set_property(TARGET ${target} PROPERTY QT_ANDROID_TARGET_SDK_VERSION ${QT_ANDROID_TARGET_SDK_VERSION})
+    set_property(TARGET ${target} PROPERTY QT_ANDROID_MIN_SDK_VERSION ${QT_ANDROID_MIN_SDK_VERSION})
+endif ()
+
 qt_add_qml_module(${target}
     URI ${target}
     NO_RESOURCE_TARGET_PATH
