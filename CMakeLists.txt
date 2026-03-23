@@ -11,6 +11,8 @@ ul_include(defaults.cmake)
 ul_include(clang-format.cmake)
 ul_include(githooks.cmake)
 
+ul_include(googletest.cmake)
+
 add_subdirectory(sdks)
 add_subdirectory(gui/Qt/qt_qml_extensions) # for test app
 
@@ -260,5 +262,3 @@ ul_set_target_defaults(${targetTest})
 
 # commented-out since until now the test app isn't a Qt app
 #ul_qt_deploy(${targetTest} ${target_QML_DIR})
-
-ul_run_target_postbuild(${targetTest})
