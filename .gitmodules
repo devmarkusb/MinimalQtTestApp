@@ -7,3 +7,6 @@
 [submodule "sdks/uiwrap"]
 	path = sdks/uiwrap
 	url = git@github.com:devmarkusb/uiwrap.git
+[submodule "devenv"]
+	path = devenv
+	url = https://github.com/devmarkusb/devenv.git
