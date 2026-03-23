@@ -60,6 +60,8 @@ jobs:
       run: >
         cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
         -DUL_QT6_VERSION:STRING=$qt_version -DUL_QT_COMPILER_SUBDIR:STRING=${{matrix.config.qtcomp}}
+        -DCMAKE_CXX_STANDARD=26
+        -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=${{github.workspace}}/devenv/cmake/fetch-content-from-lockfile.cmake
 
     - name: Build
       # Build your program with the given configuration
