@@ -89,6 +89,9 @@ set(target_QML_DIR ${CMAKE_SOURCE_DIR}/gui/Qt)
 
 qt_add_executable(${target} ${target_input})
 
+# qt_add_qml_module creates a same-named subdirectory under the build tree for QML artifacts.
+set_target_properties(${target} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+
 if (UL_ANDROID)
     set_property(TARGET ${target} PROPERTY QT_ANDROID_TARGET_SDK_VERSION ${QT_ANDROID_TARGET_SDK_VERSION})
     set_property(TARGET ${target} PROPERTY QT_ANDROID_MIN_SDK_VERSION ${QT_ANDROID_MIN_SDK_VERSION})
