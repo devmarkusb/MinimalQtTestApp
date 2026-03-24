@@ -28,6 +28,7 @@ export QT_ANDROID_KEYSTORE_PATH=$sign_key_path
 export QT_ANDROID_KEYSTORE_ALIAS=key
 export QT_ANDROID_KEYSTORE_STORE_PASS=Q6KHNhs8tAFsPiYgbpoxo9FXfcQENzvu
 export QT_ANDROID_KEYSTORE_KEY_PASS=$sign_key_pass
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 
 #    -DQT_CHAINLOAD_TOOLCHAIN_FILE=$ndk_path/build/cmake/android.toolchain.cmake \
 #    -DQT_ANDROID_SDK_BUILD_TOOLS_REVISION=36 \
@@ -41,6 +42,8 @@ export QT_ANDROID_KEYSTORE_KEY_PASS=$sign_key_pass
 # subdirs: android_arm64_v8a,android_armv7,android_x86,android_x86_64
 $dev_sdk_path/qt_linux/$qt_version/android_arm64_v8a/bin/qt-cmake \
     -DCMAKE_BUILD_TYPE=$build_config \
+    -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=./devenv/cmake/fetch-content-from-lockfile.cmake \
+    -DCMAKE_CXX_STANDARD=26 \
     -DQT_ANDROID_TARGET_SDK_VERSION=35 \
     -DQT_ANDROID_MIN_SDK_VERSION=21 \
     -DANDROID_SDK_ROOT=$sdk_path \
